@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deloitte Technical Skills Quiz - Job Preparation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .quiz-card {
+            transition: all 0.3s ease;
+        }
+        .quiz-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .option-button {
+            transition: all 0.2s ease;
+        }
+        .option-button:hover:not(:disabled) {
+            background-color: #f3f4f6;
+        }
+        .correct {
+            background-color: #10b981 !important;
+            color: white !important;
+            border-color: #059669 !important;
+        }
+        .incorrect {
+            background-color: #ef4444 !important;
+            color: white !important;
+            border-color: #dc2626 !important;
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <header class="bg-white shadow-lg border-b-4 border-blue-600">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Deloitte Technical Skills Quiz</h1>
+                    <p class="text-gray-600 mt-1">Complete Job Preparation Platform</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm text-gray-500">Total Questions</div>
+                    <div class="text-2xl font-bold text-blue-600" id="totalQuestions">260+</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-8">
+        <div id="topicSelection" class="space-y-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Choose Your Technical Domain</h2>
+                <p class="text-xl text-gray-600">Select a topic to start practicing questions for your Deloitte interview</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Updated all topic cards with comprehensive question counts -->
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-orange-500" onclick="startQuiz('aws')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">☁️</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">AWS Cloud</h3>
+                            <p class="text-sm text-gray-500">35 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">EC2, S3, Lambda, VPC, IAM, RDS, and more AWS services</p>
+                </div>
+
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-green-500" onclick="startQuiz('testing')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">✅</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">Software Testing</h3>
+                            <p class="text-sm text-gray-500">35 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">STLC, Defect Lifecycle, Testing Techniques, and QA processes</p>
+                </div>
+
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-blue-500" onclick="startQuiz('networking')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">🌐</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">Computer Networking</h3>
+                            <p class="text-sm text-gray-500">40 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">OSI Model, TCP/IP, Protocols, and Network fundamentals</p>
+                </div>
+
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-purple-500" onclick="startQuiz('os')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">💻</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">Operating Systems</h3>
+                            <p class="text-sm text-gray-500">40 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Process Management, Memory, Scheduling, and OS concepts</p>
+                </div>
+
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-yellow-500" onclick="startQuiz('powerbi')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">📈</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">Data Analysis & Power BI</h3>
+                            <p class="text-sm text-gray-500">30 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">SQL, DAX, Power BI, Data Visualization, and Analytics</p>
+                </div>
+
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-red-500" onclick="startQuiz('security')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">🛡️</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">Cybersecurity & C++</h3>
+                            <p class="text-sm text-gray-500">30 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Security Principles, Cloud Computing, and C++ Programming</p>
+                </div>
+
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-indigo-500" onclick="startQuiz('web')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">🌐</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">Web & Java</h3>
+                            <p class="text-sm text-gray-500">30 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">HTML5, MS Office, Java Programming, and Web Technologies</p>
+                </div>
+
+                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-teal-500" onclick="startQuiz('sql')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                            <span class="text-2xl">🗃️</span>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-bold text-gray-800">SQL Database</h3>
+                            <p class="text-sm text-gray-500">20 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-sm">Joins, Transactions, ACID properties, and Database operations</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Updated quiz interface with better navigation and progress tracking -->
+        <div id="quizInterface" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h2 id="quizTitle" class="text-2xl font-bold text-gray-800"></h2>
+                        <p id="questionCounter" class="text-gray-600"></p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button id="prevBtn" onclick="previousQuestion()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            Previous
+                        </button>
+                        <button onclick="quitQuiz()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                            Exit Quiz
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div id="progressBar" class="progress-bar bg-blue-600 h-3 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                <h3 id="questionText" class="text-xl font-semibold text-gray-800 mb-6 leading-relaxed"></h3>
+                
+                <div id="optionsContainer" class="space-y-3">
+                </div>
+            </div>
+
+            <div class="flex justify-between">
+                <div class="text-sm text-gray-600">
+                    <span id="scoreDisplay">Score: 0/0</span>
+                </div>
+                <button id="nextBtn" onclick="nextQuestion()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next Question
+                </button>
+            </div>
+        </div>
+
+    <!-- Results Screen -->
+        <div id="resultsScreen" class="hidden">
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center max-w-2xl mx-auto">
+                <div class="mb-8">
+                    <div id="scoreIcon" class="text-6xl mb-4"></div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Quiz Complete!</h2>
+                    <p id="scoreText" class="text-xl text-gray-600 mb-4"></p>
+                    <div id="scorePercentage" class="text-4xl font-bold mb-4"></div>
+                    <p id="feedbackMessage" class="text-lg text-gray-700 mb-8"></p>
+                </div>
+                
+                <div class="flex justify-center space-x-4">
+                    <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        Retake Quiz
+                    </button>
+                    <button onclick="goHome()" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                        Choose Another Topic
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = {
+            aws: {
+                title: "AWS Cloud Computing Quiz",
+                questions: [
+                    { question: "Which AWS service provides resizable compute capacity in the cloud as virtual servers?", options: ["AWS Lambda", "Amazon S3", "Amazon EC2", "Amazon RDS"], correct: 2 },
+                    { question: "What is the AWS object storage service that is highly scalable, durable, and available?", options: ["Amazon EBS", "Amazon S3", "Amazon EFS", "Amazon Glacier"], correct: 1 },
+                    { question: "Which AWS service allows you to run code without provisioning or managing servers?", options: ["Amazon EC2", "AWS Elastic Beanstalk", "AWS Lambda", "Amazon Lightsail"], correct: 2 },
+                    { question: "What component of AWS is used to create a private, isolated network in the cloud?", options: ["Amazon Route 53", "AWS Direct Connect", "Amazon VPC", "Elastic Load Balancer"], correct: 2 },
+                    { question: "Which service is used to manage users, groups, and permissions securely in AWS?", options: ["AWS Shield", "AWS KMS", "AWS IAM", "Amazon Inspector"], correct: 2 },
+                    { question: "What is the AWS managed relational database service?", options: ["Amazon DynamoDB", "Amazon Redshift", "Amazon RDS", "Amazon ElastiCache"], correct: 2 },
+                    { question: "Which AWS service is a fast and flexible NoSQL database service for any scale?", options: ["Amazon Aurora", "Amazon RDS", "Amazon Redshift", "Amazon DynamoDB"], correct: 3 },
+                    { question: "How can you distribute incoming application traffic across multiple EC2 instances?", options: ["Using an Auto Scaling Group", "Using an Elastic Load Balancer (ELB)", "Using Amazon Route 53", "Using AWS Direct Connect"], correct: 1 },
+                    { question: "Which storage service is designed for long-term data archiving at the lowest cost?", options: ["Amazon S3 Standard", "Amazon EBS", "Amazon S3 Glacier Deep Archive", "Amazon EFS"], correct: 2 },
+                    { question: "What is the AWS service for domain name registration and DNS routing?", options: ["Amazon VPC", "AWS Direct Connect", "Amazon CloudFront", "Amazon Route 53"], correct: 3 },
+                    { question: "A stateful firewall at the EC2 instance level is known as a:", options: ["Network ACL", "Security Group", "AWS WAF", "IAM Policy"], correct: 1 },
+                    { question: "Which service helps you model and provision your AWS infrastructure as code?", options: ["AWS CloudFormation", "AWS OpsWorks", "AWS Config", "AWS CloudTrail"], correct: 0 },
+                    { question: "What is the primary purpose of Amazon CloudFront?", options: ["To securely connect on-premises networks to AWS", "To monitor resource utilization and performance", "To deliver content to end-users with low latency", "To manage and encrypt cryptographic keys"], correct: 2 },
+                    { question: "Which AWS service provides a persistent block storage volume for use with EC2 instances?", options: ["Amazon S3", "Amazon EFS", "Amazon EBS", "Amazon Glacier"], correct: 2 },
+                    { question: "To monitor the API calls made to your AWS account for auditing and security, you should use:", options: ["Amazon CloudWatch", "Amazon Inspector", "AWS CloudTrail", "AWS Trusted Advisor"], correct: 2 },
+                    { question: "Which of the following is a component of the AWS Global Infrastructure?", options: ["Availability Zone", "Security Group", "IAM User", "EC2 Instance"], correct: 0 },
+                    { question: "What is the primary benefit of deploying an application across multiple Availability Zones?", options: ["Reduced cost", "Increased performance", "Increased availability and fault tolerance", "Simplified management"], correct: 2 },
+                    { question: "What is the shared responsibility model in AWS?", options: ["AWS is responsible for everything in the cloud.", "The customer is responsible for everything in the cloud.", "AWS is responsible for the security of the cloud, while the customer is responsible for security in the cloud.", "AWS and the customer share equal responsibility for all aspects of security."], correct: 2 },
+                    { question: "A company wants to host a static website (HTML, CSS, JS files) at a very low cost. Which combination is most suitable?", options: ["Amazon EC2 and Amazon EBS", "AWS Lambda and Amazon API Gateway", "Amazon S3 and Amazon CloudFront", "Amazon RDS and Elastic Beanstalk"], correct: 2 },
+                    { question: "Your application needs to automatically add or remove EC2 instances based on demand. Which services should you use?", options: ["Amazon SQS and AWS Lambda", "Elastic Load Balancer and Auto Scaling Groups", "Amazon Route 53 and Amazon VPC", "AWS Direct Connect and AWS VPN"], correct: 1 },
+                    { question: "A developer needs to deploy a web app without managing the underlying servers. Which service offers the simplest way?", options: ["Amazon EC2", "AWS Elastic Beanstalk", "AWS CloudFormation", "AWS Lambda"], correct: 1 },
+                    { question: "A company needs a critical relational database that must remain accessible even if a data center fails. What should they choose?", options: ["Amazon RDS for MySQL in a single Availability Zone", "Amazon DynamoDB with Global Tables", "Amazon Aurora with a Multi-AZ deployment", "Self-hosting MySQL on an EC2 instance"], correct: 2 },
+                    { question: "A media company wants to automatically create a thumbnail every time a video is uploaded. What is the most efficient serverless combination?", options: ["An EC2 instance constantly polling the S3 bucket", "An S3 event notification that triggers an AWS Lambda function", "Amazon Kinesis Video Streams and Amazon Rekognition", "AWS DataSync and an EC2 instance"], correct: 1 },
+                    { question: "You need to provide temporary credentials to an application on an EC2 instance to access S3 securely. What is the best way?", options: ["Create an IAM user and place its credentials in a file on the instance.", "Use an IAM Role attached to the EC2 instance", "Store credentials in AWS Secrets Manager and have the application retrieve them.", "Pass the credentials to the instance using User Data."], correct: 1 },
+                    { question: "For an RDS database, what is the main purpose of enabling Multi-AZ deployment versus creating a Read Replica?", options: ["Multi-AZ is for scaling read traffic, while Read Replicas are for high availability.", "Multi-AZ is for high availability and disaster recovery, while Read Replicas are for scaling read traffic.", "Multi-AZ creates a read-only copy of the database in another region.", "Read Replicas are used for automated backups, while Multi-AZ is for manual failover."], correct: 1 },
+                    { question: "What is the primary function of AWS Shield?", options: ["A web application firewall", "Managed DDoS protection", "A service for managing encryption keys", "A threat detection service"], correct: 1 },
+                    { question: "Which AWS service is a fully managed source control service that hosts Git-based repositories?", options: ["AWS CodeCommit", "AWS CodeBuild", "AWS CodeDeploy", "AWS CodePipeline"], correct: 0 },
+                    { question: "To establish a secure and private connection between your VPC and other AWS services without traversing the public internet, you should use:", options: ["NAT Gateway", "Internet Gateway", "VPC Endpoints", "Direct Connect"], correct: 2 },
+                    { question: "What does an Amazon Machine Image (AMI) typically contain?", options: ["An IAM role only", "A snapshot of an EBS volume", "A template for the root volume for an instance (e.g., an OS)", "A JAR file for a Lambda function"], correct: 2 },
+                    { question: "Which S3 storage class is designed for data that is accessed less frequently but requires rapid access when needed?", options: ["S3 Standard", "S3 Glacier Deep Archive", "S3 Intelligent-Tiering", "S3 Standard-Infrequent Access (S3 Standard-IA)"], correct: 3 },
+                    { question: "What is the difference between Amazon SNS and Amazon SQS?", options: ["SNS is a push-based service (pub/sub), while SQS is a pull-based service (polling).", "SNS is for video streams, while SQS is for messages.", "SNS is a database, while SQS is a queue.", "SNS is more expensive and slower than SQS."], correct: 0 },
+                    { question: "Which AWS service allows you to centrally manage your billing and control costs across multiple AWS accounts?", options: ["AWS Cost Explorer", "AWS Budgets", "AWS Organizations", "AWS Trusted Advisor"], correct: 2 },
+                    { question: "What is the purpose of an Internet Gateway (IGW) in a VPC?", options: ["To provide a target in your route tables for internet-routable traffic.", "To act as a firewall for your instances.", "To allow instances in private subnets to access the internet.", "To provide a private connection to AWS services."], correct: 0 },
+                    { question: "Amazon Aurora is a relational database compatible with which two open-source databases?", options: ["MySQL and MSSQL", "PostgreSQL and Oracle", "MySQL and PostgreSQL", "MariaDB and SQLite"], correct: 2 },
+                    { question: "Which AWS Well-Architected Framework pillar focuses on the ability of a system to recover from infrastructure or service disruptions?", options: ["Operational Excellence", "Security", "Reliability", "Performance Efficiency"], correct: 2 }
+                ]
+            },
+            testing: {
+                title: "Software Testing Quiz",
+                questions: [
+                    { question: "Which is the first phase of the Software Testing Life Cycle (STLC)?", options: ["Test Planning", "Requirement Analysis", "Test Case Development", "Test Execution"], correct: 1 },
+                    { question: "In the Defect Life Cycle, after a defect is fixed by a developer, the next status is:", options: ["Retest", "Open", "Verified", "Closed"], correct: 0 },
+                    { question: "Which one is the correct order of STLC phases?", options: ["Req Analysis → Test Planning → Test Execution → Test Case Dev → Test Closure", "Test Planning → Req Analysis → Test Execution → Test Case Dev → Test Closure", "Req Analysis → Test Planning → Test Case Dev → Env Setup → Test Execution → Test Closure", "Test Execution → Test Planning → Req Analysis → Test Closure"], correct: 2 },
+                    { question: "Which of the following is a valid defect status?", options: ["Pending", "Deferred", "Paused", "Completed"], correct: 1 },
+                    { question: "A typo error in the company logo on the homepage is usually considered:", options: ["High Severity, High Priority", "Low Severity, High Priority", "High Severity, Low Priority", "Low Severity, Low Priority"], correct: 1 },
+                    { question: "Boundary Value Analysis (BVA) is most effective for detecting:", options: ["Incorrect workflow sequences", "Errors at input domain limits", "Database connectivity issues", "Missing requirements"], correct: 1 },
+                    { question: "Which of the following is not a test case design technique?", options: ["Equivalence Partitioning", "Boundary Value Analysis", "Traceability Matrix", "Decision Table"], correct: 2 },
+                    { question: "The Traceability Matrix (RTM) is used to:", options: ["Track code coverage", "Map requirements to test cases and defects", "Automate test execution", "Measure test performance"], correct: 1 },
+                    { question: "Which of the following is NOT a phase in the defect life cycle?", options: ["Assigned", "Closed", "Development", "Verified"], correct: 2 },
+                    { question: "What does TC in software testing stand for?", options: ["Test Cycle", "Test Condition", "Test Case", "Test Control"], correct: 2 },
+                    { question: "Which severity-priority combination is most appropriate for an application crash during login?", options: ["High Severity, Low Priority", "High Severity, High Priority", "Low Severity, High Priority", "Low Severity, Low Priority"], correct: 1 },
+                    { question: "When requirements are missing or unclear, which STLC phase is impacted the most?", options: ["Test Planning", "Test Case Development", "Requirement Analysis", "Test Closure"], correct: 2 },
+                    { question: "A login system allowing 3 wrong password attempts before locking is an example of:", options: ["Decision Table Testing", "Boundary Value Analysis", "State Transition Testing", "Equivalence Partitioning"], correct: 2 },
+                    { question: "If a defect is marked as duplicate, it means:", options: ["It will be ignored forever", "It already exists in the bug tracking system", "It is invalid and not reproducible", "It is a blocker issue"], correct: 1 },
+                    { question: "The purpose of the Test Closure phase in STLC is:", options: ["To design test cases", "To finalize test summary and lessons learned", "To execute all test cases again", "To verify defect fixes"], correct: 1 },
+                    { question: "Which of the following belongs to high severity but low priority category?", options: ["Broken 'Pay Now' button on checkout", "Application crash when clicking 'Help' link", "Wrong spelling in company name on homepage", "App crash on login"], correct: 1 },
+                    { question: "The key purpose of environment setup in STLC is:", options: ["To write test scenarios", "To configure hardware/software for testing", "To log defects", "To create traceability matrix"], correct: 1 },
+                    { question: "Which of the following is the main goal of testing?", options: ["To ensure the software is 100% bug-free", "To verify that software meets requirements", "To improve coding standards", "To replace the role of developers"], correct: 1 },
+                    { question: "When is Smoke Testing performed?", options: ["After every defect fix", "After major regression testing", "After a new build is deployed", "After test closure"], correct: 2 },
+                    { question: "In Regression Testing, the main purpose is:", options: ["To check whether new features work", "To check if old functionality is unaffected by changes", "To test only boundary conditions", "To perform exploratory testing"], correct: 1 },
+                    { question: "Which type of testing ensures that the system works with different browsers, devices, or OS?", options: ["Compatibility Testing", "Load Testing", "Stress Testing", "Unit Testing"], correct: 0 },
+                    { question: "Which testing level focuses on verifying that individual modules of code work correctly?", options: ["Integration Testing", "System Testing", "Unit Testing", "Acceptance Testing"], correct: 2 },
+                    { question: "If a tester reports a defect but the developer says 'It works as designed', the defect is usually marked as:", options: ["Closed", "Duplicate", "Deferred", "Rejected"], correct: 3 },
+                    { question: "Alpha Testing is usually performed by:", options: ["End users at their own environment", "Testers at the developer's site", "Automated tools", "Customers in production"], correct: 1 },
+                    { question: "Which one is an example of non-functional testing?", options: ["Verifying login with valid credentials", "Testing application response time under load", "Checking forgot password link", "Testing invalid OTP scenarios"], correct: 1 },
+                    { question: "What is the main difference between White Box and Black Box testing?", options: ["White Box is done by testers, Black Box by developers.", "White Box requires knowledge of the internal code structure, Black Box does not.", "White Box tests functionality, Black Box tests performance.", "White Box is functional, Black Box is non-functional."], correct: 1 },
+                    { question: "What is the V-Model in software development?", options: ["A type of database model.", "A model where development and testing phases run in parallel.", "A sequential model where testing phases are planned in parallel with development phases.", "A model that prioritizes rapid delivery."], correct: 2 },
+                    { question: "Which of the following describes Static Testing?", options: ["Executing the code to find defects.", "Testing the application under heavy load.", "Reviewing documents like requirements and code without executing it.", "Testing on a live production environment."], correct: 2 },
+                    { question: "Testing the application's ability to handle a sudden, massive increase in traffic is known as:", options: ["Load Testing", "Stress Testing", "Spike Testing", "Volume Testing"], correct: 2 },
+                    { question: "What is the difference between Verification and Validation?", options: ["They are the same.", "Verification is 'Are we building the product right?', Validation is 'Are we building the right product?'.", "Verification is dynamic testing, Validation is static testing.", "Verification is done by the client, Validation by the test team."], correct: 1 },
+                    { question: "Beta Testing is a form of:", options: ["Unit Testing", "Integration Testing", "White Box Testing", "User Acceptance Testing"], correct: 3 },
+                    { question: "What is the primary purpose of Sanity Testing?", options: ["To test all features of the application in-depth.", "To determine if a new build is stable enough to proceed with further testing.", "To check the application's performance.", "To test the application on different operating systems."], correct: 1 },
+                    { question: "Which document outlines the scope, objective, and approach of the testing effort?", options: ["Test Case", "Defect Report", "Test Plan", "Test Summary Report"], correct: 2 },
+                    { question: "The principle that states that a small number of modules usually contains most of the defects is known as:", options: ["The Pesticide Paradox", "Defect Clustering", "Absence of Errors Fallacy", "Early Testing"], correct: 1 },
+                    { question: "What is Usability Testing?", options: ["Testing if the application can be used by a large number of users.", "Testing the security of the application.", "Testing how easy and user-friendly the software is.", "Testing if all buttons on the UI work."], correct: 2 }
+                ]
+            },
+            networking: {
+                title: "Computer Networking Quiz",
+                questions: [
+                    { question: "Which layer of the OSI model is responsible for process-to-process communication?", options: ["Network Layer", "Data Link Layer", "Transport Layer", "Application Layer"], correct: 2 },
+                    { question: "Which protocol is used to assign IP addresses automatically in a network?", options: ["FTP", "DNS", "DHCP", "SMTP"], correct: 2 },
+                    { question: "What does a switch use to forward data to the correct destination?", options: ["IP address", "MAC address", "Subnet mask", "ARP address"], correct: 1 },
+                    { question: "Which IP class provides a maximum of only 254 host addresses per network ID?", options: ["Class A", "Class B", "Class C", "Class D"], correct: 2 },
+                    { question: "Which of the following is a connection-oriented protocol?", options: ["UDP", "IP", "TCP", "ARP"], correct: 2 },
+                    { question: "In the OSI model, which layer is responsible for encryption and decryption of data?", options: ["Network Layer", "Application Layer", "Presentation Layer", "Transport Layer"], correct: 2 },
+                    { question: "What is the default port number for HTTP protocol?", options: ["20", "21", "80", "443"], correct: 2 },
+                    { question: "What is the main function of ARP (Address Resolution Protocol)?", options: ["Resolve IP to hostname", "Resolve hostname to MAC", "Resolve IP to MAC", "Resolve MAC to IP"], correct: 2 },
+                    { question: "Which IP address class is reserved for multicast?", options: ["Class A", "Class B", "Class C", "Class D"], correct: 3 },
+                    { question: "Which of the following protocols is used for sending emails?", options: ["HTTP", "FTP", "SMTP", "SNMP"], correct: 2 },
+                    { question: "What is the purpose of DNS in networking?", options: ["Encrypts data", "Maps domain names to IP addresses", "Transfers files", "Assigns IP addresses"], correct: 1 },
+                    { question: "Which protocol is used to transfer files between two computers securely?", options: ["FTP", "TFTP", "SFTP", "SMTP"], correct: 2 },
+                    { question: "Which topology requires a central controller or hub?", options: ["Mesh", "Star", "Ring", "Bus"], correct: 1 },
+                    { question: "How many bits are used in an IPv4 address?", options: ["32", "64", "128", "256"], correct: 0 },
+                    { question: "What is the purpose of the TCP three-way handshake?", options: ["Address resolution", "Path determination", "Establishing reliable connection", "Breaking the connection"], correct: 2 },
+                    { question: "Which protocol works at the transport layer and provides unreliable service?", options: ["TCP", "IP", "UDP", "ARP"], correct: 2 },
+                    { question: "What is the function of the ICMP protocol?", options: ["File transfer", "Host-to-host communication", "Error reporting", "Routing"], correct: 2 },
+                    { question: "Which protocol is responsible for routing packets across networks?", options: ["TCP", "UDP", "ICMP", "IP"], correct: 3 },
+                    { question: "Which addressing method is used in Ethernet?", options: ["IP addressing", "Physical addressing", "Logical addressing", "Port addressing"], correct: 1 },
+                    { question: "What is the full form of CSMA/CD?", options: ["Carrier Sensed Multiple Access/Collision Detect", "Carrier Shared Multiple Address/Collision Detection", "Circuit Shared Multiple Access/Collision Division", "Connection Shared MAC Address/Collision Detect"], correct: 0 },
+                    { question: "In which topology does failure of one device affect the entire network?", options: ["Star", "Ring", "Bus", "Mesh"], correct: 1 },
+                    { question: "Which of the following uses TCP and port 443?", options: ["HTTP", "FTP", "HTTPS", "SMTP"], correct: 2 },
+                    { question: "What is the size of an IPv6 address?", options: ["32-bit", "64-bit", "128-bit", "256-bit"], correct: 2 },
+                    { question: "Which command is used to test connectivity between two devices on a network?", options: ["ipconfig", "traceroutes", "ping", "telnet"], correct: 2 },
+                    { question: "Which layer of the OSI model establishes, manages, and terminates sessions?", options: ["Transport Layer", "Session Layer", "Network Layer", "Presentation Layer"], correct: 1 },
+                    { question: "What does NAT (Network Address Translation) mainly do?", options: ["Encrypts data", "Allocates MAC addresses", "Converts private IPs to public IPs", "Maps hostnames to IPs"], correct: 2 },
+                    { question: "What type of transmission allows data to be sent in both directions at the same time?", options: ["Simplex", "Half-duplex", "Full-duplex", "Multicast"], correct: 2 },
+                    { question: "Which of the following protocols provides secure remote login over a network?", options: ["Telnet", "SSH (Secure Shell Protocol)", "FTP", "HTTP"], correct: 1 },
+                    { question: "Which command displays the route taken by packets to reach a host?", options: ["ping", "traceroute (Linux)/ tracert (windows)", "arp", "ifconfig"], correct: 1 },
+                    { question: "Which multiple access method is used by Ethernet?", options: ["CSMA/CD", "CSMA/CA", "TDMA", "FDMA"], correct: 0 },
+                    { question: "What is the purpose of a subnet mask?", options: ["To uniquely identify a device on the network", "To determine which part of an IP address is the network portion and which is the host portion", "To translate domain names to IP addresses", "To provide a secure connection"], correct: 1 },
+                    { question: "Which device is used to connect two different networks together?", options: ["Hub", "Switch", "Router", "Bridge"], correct: 2 },
+                    { question: "The TCP/IP model has how many layers?", options: ["7", "5", "4", "3"], correct: 2 },
+                    { question: "What is the private IP address range for Class C networks?", options: ["10.0.0.0 to 10.255.255.255", "172.16.0.0 to 172.31.255.255", "192.168.0.0 to 192.168.255.255", "127.0.0.0 to 127.255.255.255"], correct: 2 },
+                    { question: "What does the 'TTL' field in an IP header stand for?", options: ["Time To Live", "Total Transmission Length", "Time To Leave", "Transfer Time Limit"], correct: 0 },
+                    { question: "Which port number does FTP use for its control connection?", options: ["20", "21", "22", "23"], correct: 1 },
+                    { question: "A 'hub' operates at which layer of the OSI model?", options: ["Layer 1 (Physical)", "Layer 2 (Data Link)", "Layer 3 (Network)", "Layer 4 (Transport)"], correct: 0 },
+                    { question: "What is APIPA (Automatic Private IP Addressing) used for?", options: ["To provide a secure VPN connection", "To assign an IP address to a device when a DHCP server is not available", "To translate public IPs to private IPs", "To speed up DNS resolution"], correct: 1 },
+                    { question: "Which of the following is a routing protocol?", options: ["HTTP", "ARP", "OSPF", "SNMP"], correct: 2 },
+                    { question: "What is the primary difference between a Hub, a Switch, and a Router?", options: ["They all perform the same function", "A Hub is Layer 1, a Switch is Layer 2, and a Router is Layer 3", "A Router is for LANs, a Switch is for WANs", "A Hub is the most intelligent of the three"], correct: 1 }
+                ]
+            },
+            os: {
+                title: "Operating Systems Quiz",
+                questions: [
+                    { question: "Which component of an OS is responsible for process creation, scheduling and termination?", options: ["File Manager", "Memory Manager", "Process (or CPU) Scheduler / Process Manager", "I/O Manager"], correct: 2 },
+                    { question: "What is the main difference between a process and a thread?", options: ["A process cannot run concurrently", "A process has its own memory space; threads within the same process share memory.", "A thread has a separate file system", "There is no difference."], correct: 1 },
+                    { question: "Which CPU scheduling algorithm gives the smallest average waiting time if job lengths are known?", options: ["First-Come First-Served (FCFS)", "Round Robin (RR)", "Shortest Job First (SJF) — non-preemptive", "Priority Scheduling"], correct: 2 },
+                    { question: "What does a context switch involve?", options: ["Copying files between disks", "Saving the CPU state of the current process and loading the state of the next process", "Rebooting the operating system", "Swapping out a disk sector"], correct: 1 },
+                    { question: "Which of the following is a preemptive scheduling algorithm?", options: ["FCFS", "Non-preemptive SJF", "Round Robin (RR)", "None of the above"], correct: 2 },
+                    { question: "What is the purpose of virtual memory?", options: ["To make the CPU run faster", "To use disk space to extend apparent RAM and allow larger processes", "To store backups", "To allocate virtual CPUs to threads"], correct: 1 },
+                    { question: "Which page replacement algorithm is optimal but impractical?", options: ["FIFO", "LRU (Least Recently Used)", "OPT (Belady's optimal algorithm)", "Clock"], correct: 2 },
+                    { question: "What is the primary difference between paging and segmentation?", options: ["Paging divides memory into fixed-size blocks; segmentation divides into variable-size segments.", "Paging is for disk; segmentation is for RAM.", "Segmentation eliminates fragmentation.", "There is no difference."], correct: 0 },
+                    { question: "What is an interrupt?", options: ["A program that never ends", "A synchronous I/O operation", "A signal to the CPU indicating an event that needs immediate attention", "A file system permission"], correct: 2 },
+                    { question: "Which kernel mode allows code to execute with full hardware access?", options: ["User mode", "Kernel mode", "Virtual mode", "Supervisor-less mode"], correct: 1 },
+                    { question: "Which system call is used to create a new process in Unix-like systems?", options: ["exec()", "fork()", "open()", "ioctl()"], correct: 1 },
+                    { question: "What does the exec() family of calls do after a fork()?", options: ["Terminate the process", "Replace the current process image with a new program image", "Create a new thread", "Free all memory"], correct: 1 },
+                    { question: "Which IPC mechanism is best for unidirectional communication between related processes?", options: ["Message Queues", "Shared Memory", "Pipes (anonymous/unnamed pipes)", "Semaphores"], correct: 2 },
+                    { question: "What is a semaphore used for?", options: ["Memory allocation", "Synchronization between processes/threads", "Disk I/O scheduling", "Network packet routing"], correct: 1 },
+                    { question: "Which condition is NOT one of the four necessary conditions for deadlock?", options: ["Mutual exclusion", "Hold and wait", "Preemption", "Circular wait"], correct: 2 },
+                    { question: "What is the role of the MMU (Memory Management Unit)?", options: ["Manage file permissions", "Translate virtual addresses to physical addresses", "Schedule CPU tasks", "Encrypt network traffic"], correct: 1 },
+                    { question: "What is TLB (Translation Lookaside Buffer) used for?", options: ["Caching translated virtual-to-physical page table entries for speed", "Holding disk block mappings", "Scheduling threads on CPUs", "Storing I/O buffer data"], correct: 0 },
+                    { question: "Which file system feature helps recover quickly after a crash?", options: ["Defragmentation", "Journaling", "Thin provisioning", "RAID striping"], correct: 1 },
+                    { question: "What is swapping?", options: ["Exchanging files between users", "Moving entire processes between RAM and disk", "Changing owner of a process", "Rotating logs periodically"], correct: 1 },
+                    { question: "Which algorithm is commonly used to avoid starvation in priority scheduling?", options: ["Aging", "FIFO only", "LIFO queueing", "Round Robin without changes"], correct: 0 },
+                    { question: "Which of these is true about system calls?", options: ["They are executed in user mode only.", "They provide the interface for user programs to request services from the kernel.", "They are only used for file I/O.", "They cannot be traced."], correct: 1 },
+                    { question: "What is a 'race condition'?", options: ["Code running faster than hardware", "A bug where multiple threads access shared data without proper synchronization", "A scheduling algorithm", "A file system corruption"], correct: 1 },
+                    { question: "Which mechanism provides mutual exclusion?", options: ["Semaphores (binary) / Mutexes", "File locks only", "Paging", "Swapping"], correct: 0 },
+                    { question: "What does the nice command affect on Unix-like systems?", options: ["File permissions", "Process scheduling priority", "Memory allocation limits", "Disk I/O ordering"], correct: 1 },
+                    { question: "Which technique improves disk I/O throughput by minimizing seek time?", options: ["Round robin scheduling", "Elevator (SCAN) disk scheduling algorithm", "FIFO queuing only", "LRU page replacement"], correct: 1 },
+                    { question: "What happens during a graceful system shutdown?", options: ["The system immediately cuts power", "The OS signals processes to terminate, syncs file systems, and powers off hardware", "The OS only stops new processes", "The OS only disables network interfaces"], correct: 1 },
+                    { question: "What is 'thrashing' in the context of virtual memory?", options: ["When the CPU overheats", "When the system spends most of its time swapping pages in and out", "When multiple threads access a file", "When disk controllers fail"], correct: 1 },
+                    { question: "What is 'copy-on-write' often used in OS processes?", options: ["Immediately duplicating memory", "Delaying copying of a resource until it is modified", "Encrypting data on write", "Compressing files before writing"], correct: 1 },
+                    { question: "Which scheduling approach can lead to starvation of low-priority processes?", options: ["Round Robin", "Aging-based scheduling", "Priority scheduling without aging", "Fair-share scheduling"], correct: 2 },
+                    { question: "Which data structure in Unix stores metadata about a file?", options: ["Superblock", "Inode", "Directory entry", "File allocation table"], correct: 1 },
+                    { question: "What is a zombie process?", options: ["A process that has been hacked.", "A process that has completed execution but still has an entry in the process table.", "A process that runs in the background.", "A process that cannot be terminated."], correct: 1 },
+                    { question: "The difference between internal and external fragmentation is:", options: ["Internal occurs in paging, external in segmentation.", "Internal is unused memory within an allocated block, external is unused memory between allocated blocks.", "External is more efficient to manage.", "Both A and B are correct."], correct: 3 },
+                    { question: "What is the primary role of a bootloader?", options: ["To load the web browser.", "To manage device drivers.", "To load the kernel into memory and start the operating system.", "To format the hard drive."], correct: 2 },
+                    { question: "Which RAID level provides striping with parity for fault tolerance?", options: ["RAID 0", "RAID 1", "RAID 5", "RAID 10"], correct: 2 },
+                    { question: "What does the `chmod 755` command do in a Unix/Linux system?", options: ["Sets read-only permissions for everyone.", "Gives the owner read/write/execute, and the group/others read/execute permissions.", "Makes the file hidden.", "Deletes the file."], correct: 1 },
+                    { question: "What is a 'critical section' in concurrent programming?", options: ["The most important part of the OS kernel.", "A section of code that accesses shared resources and must not be concurrently executed by more than one thread.", "A hardware component for managing memory.", "A section of code that is never executed."], correct: 1 },
+                    { question: "Which of the following best defines multitasking?", options: ["Running multiple programs by having the CPU switch between them very quickly.", "Using multiple CPUs to run a single program.", "Keeping multiple programs in memory.", "Allowing multiple users to use the system simultaneously."], correct: 0 },
+                    { question: "What is an orphan process?", options: ["A process with no allocated memory.", "A process whose parent process has terminated before it.", "A process that cannot create child processes.", "A process running with root privileges."], correct: 1 },
+                    { question: "In file systems, what is a hard link?", options: ["A shortcut to a file on the desktop.", "A separate file that points to the path of another file.", "A directory entry that associates a name with an inode number.", "A link that works across different file systems."], correct: 2 },
+                    { question: "What is the main difference between a monolithic kernel and a microkernel?", options: ["A microkernel is larger than a monolithic kernel.", "A monolithic kernel runs all OS services in kernel space, while a microkernel runs most services in user space.", "Monolithic kernels are only used in Windows.", "Microkernels do not support virtual memory."], correct: 1 }
+                ]
+            },
+            powerbi: {
+                title: "Data Analysis & Power BI Quiz",
+                questions: [
+                    { question: "What does the SQL command GROUP BY do?", options: ["Filters rows", "Aggregates data by one or more columns", "Deletes duplicate records", "Sorts records alphabetically"], correct: 1 },
+                    { question: "Which chart is best suited to show the trend of data over time?", options: ["Bar Chart", "Pie Chart", "Line Chart", "Scatter Plot"], correct: 2 },
+                    { question: "What does ETL stand for in data analysis?", options: ["Explore, Transfer, Load", "Extract, Transform, Load", "Extract, Translate, Load", "Enter, Tabulate, Load"], correct: 1 },
+                    { question: "In Excel, what does the VLOOKUP function do?", options: ["Creates charts", "Looks up a value vertically in a table", "Visualizes data", "Counts cells"], correct: 1 },
+                    { question: "In a business context, what is the main goal of data analysis?", options: ["Format reports nicely", "Automate software tasks", "Make informed business decisions", "Remove all duplicate data"], correct: 2 },
+                    { question: "What is the use of the HAVING clause in SQL?", options: ["Replaces the WHERE clause", "Filters groups after aggregation", "Deletes NULL values", "Groups rows into one"], correct: 1 },
+                    { question: "Which of the following best describes a KPI (Key Performance Indicator)?", options: ["A financial report", "A measurable value that indicates progress", "A data source", "A chart format"], correct: 1 },
+                    { question: "What is Data Cleaning?", options: ["Formatting tables", "Removing incorrect or duplicate data", "Creating dashboards", "Encrypting files"], correct: 1 },
+                    { question: "You're given sales data. How would you identify the top 5 performing products by revenue?", options: ["Sort by quantity", "Filter by product category", "Use GROUP BY on Product, SUM(revenue), then ORDER BY DESC LIMIT 5", "Use COUNT on Product ID"], correct: 2 },
+                    { question: "What is the difference between INNER JOIN and LEFT JOIN in SQL?", options: ["LEFT JOIN returns fewer rows than INNER", "INNER JOIN returns only matching rows, LEFT JOIN includes unmatched left table rows", "LEFT JOIN needs both tables sorted", "They are identical in output"], correct: 1 },
+                    { question: "What is Power BI primarily used for?", options: ["Creating websites", "Data visualization and business intelligence", "Programming in Python", "Building mobile apps"], correct: 1 },
+                    { question: "Which language is used to create calculated columns and measures in Power BI?", options: ["SQL", "DAX", "R", "M"], correct: 1 },
+                    { question: "What does DAX stand for?", options: ["Data Analysis Expressions", "Data Analytics Exchange", "Digital Analysis Extensions", "Direct Access Exchange"], correct: 0 },
+                    { question: "What is the role of Power Query in Power BI?", options: ["Designing dashboards", "Writing DAX formulas", "Data transformation and shaping", "Report sharing"], correct: 2 },
+                    { question: "Which view in Power BI allows you to visually see and edit relationships between tables?", options: ["Report View", "Data View", "Model View", "Query View"], correct: 2 },
+                    { question: "What does 'drill-through' allow users to do in a Power BI report?", options: ["Delete visuals", "View report metadata", "Navigate to another page with more detailed data", "Export data to Excel"], correct: 2 },
+                    { question: "What does the CALCULATE() function in DAX do?", options: ["Modifies the filter context of a measure or expression", "Calculates total sales only", "Replaces column values", "Deletes blank rows"], correct: 0 },
+                    { question: "What is Row-Level Security (RLS) in Power BI?", options: ["Encrypting Power BI files", "Restricting data access for certain users", "Creating visuals dynamically", "Scheduling DAX scripts"], correct: 1 },
+                    { question: "In Power BI, what does the Merge Queries operation do in Power Query?", options: ["Joins two tables based on a key column", "Splits a column into multiple columns", "Sorts queries alphabetically", "Replaces all null values"], correct: 0 },
+                    { question: "Which of the following allows real-time data monitoring in Power BI?", options: ["DAX queries", "Static dashboard", "Manual refresh", "Streaming dataset"], correct: 3 },
+                    { question: "What is the difference between a measure and a calculated column in Power BI?", options: ["Measures are calculated at query time and don't store data; calculated columns store data in the model.", "Calculated columns are created with M language; measures are created with DAX.", "Measures can only be used for totals.", "There is no difference."], correct: 0 },
+                    { question: "Which DAX function is used to iterate over a table and evaluate an expression for each row?", options: ["CALCULATE()", "FILTER()", "SUMX()", "RELATED()"], correct: 2 },
+                    { question: "What is the purpose of a Power BI Gateway?", options: ["To secure the Power BI service.", "To connect Power BI service to on-premises data sources for refresh.", "To design mobile reports.", "To compress PBIX files before publishing."], correct: 1 },
+                    { question: "In data modeling, what is a 'star schema'?", options: ["A schema where all tables are linked to every other table.", "A schema with a central fact table connected to multiple dimension tables.", "A circular schema with no central table.", "A schema that only contains one large table."], correct: 1 },
+                    { question: "Which Power BI visual is best for showing the relationship between two numeric variables?", options: ["Pie Chart", "Table", "Card", "Scatter Plot"], correct: 3 },
+                    { question: "What is the M language used for in Power BI?", options: ["Creating dashboards", "Data shaping and transformation in Power Query Editor", "Managing user roles and security", "Creating measures in reports"], correct: 1 },
+                    { question: "What is the primary difference between structured and unstructured data?", options: ["Structured data is text-based; unstructured is numeric.", "Structured data has a predefined model (like a table); unstructured data does not (like an email).", "Structured data is always clean; unstructured is always messy.", "Structured data is smaller in size."], correct: 1 },
+                    { question: "In Excel, what function would you use to join text from multiple cells into one cell?", options: ["JOIN()", "COMBINE()", "MERGE()", "CONCATENATE()"], correct: 3 },
+                    { question: "Which SQL clause is used to sort the result set?", options: ["SORT BY", "ORDER BY", "GROUP BY", "ARRANGE BY"], correct: 1 },
+                    { question: "How would you handle missing numerical data in a dataset for analysis?", options: ["Delete the entire dataset.", "Always replace with zero.", "Replace with the mean, median, or a predictive value depending on context.", "Leave it as null."], correct: 2 }
+                ]
+            },
+            security: {
+                title: "Cybersecurity & C++ Quiz",
+                questions: [
+                    { question: "What is IP Spoofing?", options: ["Hiding an IP via a VPN", "Faking a source IP address to mask the origin", "Encrypting an IP address", "Using a static IP"], correct: 1 },
+                    { question: "How does HTTPS improve security?", options: ["Using HTTP only", "Encrypting data using SSL/TLS", "Blocking IPs", "Speeding up data"], correct: 1 },
+                    { question: "Which of these is a core security principle ensuring confidentiality, integrity, and availability?", options: ["TTL", "CIA triad", "OSI triad", "AAA"], correct: 1 },
+                    { question: "What does social engineering primarily target?", options: ["Network hardware", "Human vulnerabilities", "Antivirus software", "Router firmware"], correct: 1 },
+                    { question: "What is a brute-force attack?", options: ["Social engineering via email", "Repeatedly trying passwords or passphrases until successful", "Overloading network devices", "Spoofing IP addresses"], correct: 1 },
+                    { question: "What is phishing?", options: ["Sending spam messages", "Deceptive attempts to get sensitive info via disguised emails or messages", "A denial-of-service attack", "IP spoofing"], correct: 1 },
+                    { question: "What is malware?", options: ["Secure software", "Malicious software like viruses, ransomware, and trojans", "Antivirus software", "Firewall configurations"], correct: 1 },
+                    { question: "What is a Distributed Denial-of-Service (DDoS) attack?", options: ["Stealing sensitive data from a server", "Overwhelming a target with traffic from multiple sources to make it unavailable", "Gaining unauthorized access by guessing a password", "Tricking a user into revealing their credentials"], correct: 1 },
+                    { question: "In cryptography, what is a key characteristic of asymmetric encryption?", options: ["It uses the same key for both encryption and decryption", "It is much faster than symmetric encryption", "It is only used for hashing passwords", "It uses a pair of keys: a public key for encryption and a private key for decryption"], correct: 3 },
+                    { question: "Which of the following is not a recognized cloud service model?", options: ["IaaS", "PaaS", "SaaS", "CaaS"], correct: 3 },
+                    { question: "Which deployment model offers the highest control and customization?", options: ["Public Cloud", "Private Cloud", "Hybrid Cloud", "Community Cloud"], correct: 1 },
+                    { question: "What does 'elasticity' in cloud computing refer to?", options: ["Fixed resource capacity", "Ability to scale resources up or down on demand", "Manual provisioning of servers", "Limited network access"], correct: 1 },
+                    { question: "Which technology is foundational to cloud computing?", options: ["Virtualization", "Blockchain", "Augmented Reality", "Quantum Computing"], correct: 0 },
+                    { question: "What differentiates cloud infrastructure from traditional IT?", options: ["Manual updates only", "On-site management", "Decentralization and on-demand resource pooling", "Fixed centralized hardware"], correct: 2 },
+                    { question: "Which allows operator overloading in C++?", options: ["Polymorphism", "Function overloading", "Operator overloading", "Encapsulation"], correct: 2 },
+                    { question: "What's the difference between malloc() and calloc()?", options: ["malloc() initializes memory to zero, calloc() does not", "malloc() is faster; calloc() initializes memory to zero", "Both do the same", "malloc() allocates arrays; calloc() allocates structs"], correct: 1 },
+                    { question: "What are the four main OOP principles in C++?", options: ["Class, Object, Function, Variable", "Abstraction, Inheritance, Polymorphism, Encapsulation", "Public, Private, Protected, Friend", "Include, Define, Compile, Link"], correct: 1 },
+                    { question: "What is an object?", options: ["Template", "Instance of a class", "Data type macro", "Pointer"], correct: 1 },
+                    { question: "Which manages heap memory in C++?", options: ["new and delete", "malloc() and free() only", "alloc() and free()", "Garbage collection"], correct: 0 },
+                    { question: "What is function overriding?", options: ["Same function in same class", "Derived class redefining base class function", "Changing return type only", "Not allowed"], correct: 1 },
+                    { question: "What is the principle of 'least privilege' in security?", options: ["Granting users the most powerful permissions available.", "Giving a user account only those privileges which are essential to perform its intended function.", "Allowing temporary elevated access to all users.", "The principle that security is not important."], correct: 1 },
+                    { question: "What is the difference between Hashing and Encryption?", options: ["They are the same.", "Hashing is a one-way function and cannot be reversed, while encryption is a two-way function.", "Encryption is used for passwords, hashing for files.", "Hashing is less secure than encryption."], correct: 1 },
+                    { question: "In C++, what is the purpose of the `virtual` keyword on a member function?", options: ["It makes the function static.", "It allows the function to be overridden in a derived class, enabling polymorphism.", "It deletes the function from memory.", "It prevents the function from being called."], correct: 1 },
+                    { question: "What is the 'Man-in-the-Middle' (MITM) attack?", options: ["A brute-force password attack.", "An attack where the adversary secretly relays and possibly alters the communications between two parties.", "A type of malware.", "An attack that targets physical data centers."], correct: 1 },
+                    { question: "What is the primary feature of a `std::unique_ptr` in modern C++?", options: ["It can be copied multiple times.", "It allows multiple pointers to own the same resource.", "It has exclusive ownership of the resource it points to and automatically deallocates it.", "It is a raw pointer with extra features."], correct: 2 },
+                    { question: "What does the term 'Zero-Day Exploit' refer to?", options: ["An exploit that takes zero days to fix.", "An attack against a vulnerability that is unknown to the software vendor or the public.", "An attack that always happens on the first day of the month.", "A vulnerability that has zero impact."], correct: 1 },
+                    { question: "In C++, what is RAII (Resource Acquisition Is Initialization)?", options: ["A design pattern for error handling.", "A memory management technique where resource lifetime is tied to object lifetime.", "A type of inheritance.", "A compiler optimization."], correct: 1 },
+                    { question: "Which of the following describes 'AAA' in cybersecurity?", options: ["Attack, Acknowledge, Announce", "Authentication, Authorization, and Accounting", "Access, Administer, Audit", "Application, Algorithm, Attack"], correct: 1 },
+                    { question: "In C++, what is the difference between the stack and the heap?", options: ["Stack is for global variables, heap is for local variables.", "Stack memory is managed automatically (LIFO), while heap memory is managed manually by the programmer (`new`/`delete`).", "The heap is faster than the stack.", "There is no difference."], correct: 1 },
+                    { question: "What is a primary defense against ransomware?", options: ["Using a strong password.", "Keeping software updated and maintaining regular, offline backups.", "Disabling your firewall.", "Encrypting your own files first."], correct: 1 }
+                ]
+            },
+            web: {
+                title: "Web Technologies & Java Quiz",
+                questions: [
+                    { question: "Which HTML5 element defines navigation links?", options: ["<footer>", "<nav>", "<section>", "<header>"], correct: 1 },
+                    { question: "The <canvas> element in HTML5 is used for:", options: ["Creating video maps", "Drawing graphics via scripting", "Capturing user inputs", "Embedding forms"], correct: 1 },
+                    { question: "Which semantic tag indicates self-contained content independent from the rest?", options: ["<div>", "<article>", "<span>", "<section>"], correct: 1 },
+                    { question: "Which attribute in HTML5 ensures input fields cannot be left blank?", options: ["required", "validate", "mandatory", "pattern"], correct: 0 },
+                    { question: "Which HTML5 API allows client-side storage up to several megabytes?", options: ["Cookies API", "Local Storage API", "Flash Storage API", "Session Cookies API"], correct: 1 },
+                    { question: "What is the primary benefit of using Web Workers in HTML5?", options: ["Storing data offline", "Running scripts in the background without freezing the UI", "Drawing graphics on the screen", "Embedding video content"], correct: 1 },
+                    { question: "In Excel, which function returns the number of characters in a text string?", options: ["SUM()", "LEN()", "COUNT()", "CHAR()"], correct: 1 },
+                    { question: "What does a pivot table in Excel do?", options: ["Filters rows only", "Summarizes and reorganizes data dynamically", "Sorts data alphabetically", "Validates cell entries"], correct: 1 },
+                    { question: "What is Word's 'Track Changes' feature primarily used for?", options: ["Applying text formatting", "Highlighting spelling errors", "Recording and reviewing edits from collaborators", "Merging multiple documents into one"], correct: 2 },
+                    { question: "What is Word's 'mail merge' feature used for?", options: ["Merging multiple documents into a single PDF file", "Generating mass personalized documents from a data source", "Merging a Word document with an Excel workbook", "Importing a batch of images into a document"], correct: 1 },
+                    { question: "Which Excel formula should you use to sum values only if a specified condition is met?", options: ["SUMIF()", "COUNTIF()", "IF()", "SUM()"], correct: 0 },
+                    { question: "In Microsoft Word, what is the primary benefit of using Styles for formatting?", options: ["It makes the document file size smaller", "Ensuring consistent formatting and allowing for easy global updates", "It is the only way to change the font", "It automatically corrects spelling mistakes"], correct: 1 },
+                    { question: "Which keyword in Java prevents a class from being subclassed?", options: ["static", "final", "abstract", "private"], correct: 1 },
+                    { question: "Which concept allows method reuse from a superclass?", options: ["Encapsulation", "Inheritance", "Polymorphism", "Abstraction"], correct: 1 },
+                    { question: "What does the static keyword indicate for a method?", options: ["It belongs to the class, not instance", "It cannot be overridden", "It's not accessible", "It can't access other static members"], correct: 0 },
+                    { question: "What does JVM's JIT compiler do?", options: ["Executes bytecode line-by-line", "Converts bytecode into native code at runtime", "Interprets source code", "Checks syntax"], correct: 1 },
+                    { question: "Which package contains Java's Collections Framework?", options: ["java.io", "java.util", "java.lang", "java.collection"], correct: 1 },
+                    { question: "What value does String s = null; s.length(); produce?", options: ["0", "Compile-time error", "NullPointerException", "LengthUndefined"], correct: 2 },
+                    { question: "Which allows multiple classes to implement similar behaviors?", options: ["Abstract classes", "Interfaces", "Objects", "Packages"], correct: 1 },
+                    { question: "What's the default value of a boolean class member?", options: ["true", "Not initialized", "false", "null"], correct: 2 },
+                    { question: "In CSS, what is the 'Box Model'?", options: ["A model for 3D graphics.", "A layout paradigm that includes content, padding, border, and margin.", "A way to store colors.", "A JavaScript library for layout."], correct: 1 },
+                    { question: "What is the difference between the HTTP GET and POST methods?", options: ["POST is faster than GET.", "GET appends data to the URL, while POST includes it in the request body.", "GET is for sending files, POST is for text.", "There is no difference."], correct: 1 },
+                    { question: "What does DOM stand for in web development?", options: ["Data Object Model", "Document Object Model", "Disk Operating Mode", "Digital Ordinance Map"], correct: 1 },
+                    { question: "In Java, what is the primary difference between an Interface and an Abstract Class?", options: ["An interface can have method implementations.", "A class can implement multiple interfaces, but only extend one abstract class.", "Abstract classes cannot have constructors.", "Interfaces are older than abstract classes."], correct: 1 },
+                    { question: "What is a cookie in the context of web browsers?", options: ["A small piece of data sent from a website and stored on the user's computer.", "A type of virus.", "A JavaScript animation effect.", "A security certificate."], correct: 0 },
+                    { question: "In Java, what is the purpose of the `final` keyword?", options: ["To indicate a method can be overridden.", "To create a constant variable, prevent method overriding, and prevent class inheritance.", "To mark a method for garbage collection.", "To make a method visible only within its package."], correct: 1 },
+                    { question: "What is the difference between `null` and `undefined` in JavaScript?", options: ["They are identical.", "`undefined` means a variable has been declared but not assigned a value, while `null` is an assignment value.", "`null` is for numbers, `undefined` is for strings.", "A `null` variable throws an error."], correct: 1 },
+                    { question: "Which Java collection class provides a resizable array implementation?", options: ["LinkedList", "HashSet", "ArrayList", "TreeMap"], correct: 2 },
+                    { question: "What is the purpose of the `alt` attribute on an `<img>` tag in HTML?", options: ["To provide alternative text for an image if it cannot be displayed.", "To align the image.", "To set the image's animation.", "To link the image to another page."], correct: 0 },
+                    { question: "In Java, what is the difference between method overloading and overriding?", options: ["Overloading is done in a subclass, overriding in the same class.", "Overloading involves methods with the same name but different parameters; overriding is a subclass providing its own implementation of a superclass method.", "Overriding changes the return type only.", "They are the same concept."], correct: 1 }
+                ]
+            },
+            sql: {
+                title: "SQL Database Quiz",
+                questions: [
+                    { question: "Which clause is used to combine rows from two tables using a match?", options: ["GROUP BY", "JOIN", "WHERE", "UNION"], correct: 1 },
+                    { question: "What does PRIMARY KEY enforce?", options: ["Non-unique values", "Uniqueness and non-nullability", "Default values", "Duplicate records"], correct: 1 },
+                    { question: "What is the effect of a LEFT JOIN?", options: ["Only common rows", "All left table rows, matched right rows", "All right table rows, matched left rows", "All rows from both"], correct: 1 },
+                    { question: "Which ensures atomicity, consistency, isolation, durability?", options: ["CRUD", "DDL", "ACID", "OLAP"], correct: 2 },
+                    { question: "Which clause filters groups created by GROUP BY?", options: ["WHERE", "HAVING", "FILTER", "GROUP WHERE"], correct: 1 },
+                    { question: "What is an index used for?", options: ["To store large text", "Speed up retrieval", "Define relationships", "Validate input"], correct: 1 },
+                    { question: "Difference between DELETE and TRUNCATE?", options: ["DELETE is slower and logged, TRUNCATE is faster and not logged row by row", "DELETE cannot use WHERE, TRUNCATE can", "Both perform the same", "DELETE resets identity column, TRUNCATE does not"], correct: 0 },
+                    { question: "What does UNION remove by default?", options: ["Everything", "Duplicate rows", "Table structure", "Null values"], correct: 1 },
+                    { question: "Which command starts a transaction block?", options: ["BEGIN TRANSACTION", "START TRANSACTION", "INITIATE TX", "BEGIN"], correct: 1 },
+                    { question: "In SQL, what is the main difference between UNION and UNION ALL?", options: ["UNION is faster than UNION ALL", "UNION removes duplicate rows, while UNION ALL includes them", "UNION works on text, UNION ALL works on numbers", "There is no difference"], correct: 1 },
+                    { question: "What is the purpose of a FOREIGN KEY?", options: ["To uniquely identify a record in a table.", "To link two tables together and enforce referential integrity.", "To create a copy of a table.", "To speed up queries."], correct: 1 },
+                    { question: "Which SQL statement is used to extract data from a database?", options: ["GET", "OPEN", "SELECT", "EXTRACT"], correct: 2 },
+                    { question: "What is database normalization?", options: ["The process of making the database faster.", "The process of encrypting database contents.", "The process of organizing columns and tables to minimize data redundancy.", "The process of backing up the database."], correct: 2 },
+                    { question: "Which type of JOIN returns all rows when there is a match in either the left or the right table?", options: ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN"], correct: 3 },
+                    { question: "What does the `LIKE` operator do in a `WHERE` clause?", options: ["It performs a case-sensitive search.", "It is used for pattern matching in a string.", "It is used to select values within a given range.", "It limits the number of rows returned."], correct: 1 },
+                    { question: "Which of the following is a DDL (Data Definition Language) command?", options: ["SELECT", "UPDATE", "INSERT", "CREATE"], correct: 3 },
+                    { question: "What is a database view?", options: ["A backup of a table.", "A stored result of a query that can be queried like a table.", "An index on a table.", "A log of all database transactions."], correct: 1 },
+                    { question: "Which aggregate function returns the number of rows?", options: ["SUM()", "AVG()", "COUNT()", "MAX()"], correct: 2 },
+                    { question: "What is a subquery in SQL?", options: ["A query that is nested inside another query.", "A query used to create a view.", "A query that cannot return any data.", "A special type of JOIN."], correct: 0 },
+                    { question: "Which SQL command is used to change the data in a table?", options: ["MODIFY", "UPDATE", "CHANGE", "ALTER"], correct: 1 }
+                ]
+            }
+        };
+
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let score = 0;
+        let answeredQuestions = new Set();
+
+        function startQuiz(quizType) {
+            currentQuiz = quizData[quizType];
+            currentQuestionIndex = 0;
+            userAnswers = new Array(currentQuiz.questions.length).fill(null);
+            score = 0;
+            answeredQuestions.clear();
+
+            document.getElementById('topicSelection').classList.add('hidden');
+            document.getElementById('quizInterface').classList.remove('hidden');
+            document.getElementById('resultsScreen').classList.add('hidden');
+
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+            
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuiz === null || currentQuestionIndex < 0 || currentQuestionIndex >= currentQuiz.questions.length) return;
+
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const totalQuestions = currentQuiz.questions.length;
+            
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestionIndex + 1} of ${totalQuestions}`;
+            document.getElementById('progressBar').style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
+            document.getElementById('questionText').textContent = question.question;
+            document.getElementById('scoreDisplay').textContent = `Score: ${score}/${answeredQuestions.size}`;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionButton = document.createElement('button');
+                optionButton.className = 'option-button w-full text-left p-4 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors text-gray-700';
+                optionButton.innerHTML = `<span class="font-medium mr-2">${String.fromCharCode(65 + index)})</span> ${option}`;
+                optionButton.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(optionButton);
+            });
+
+            if (userAnswers[currentQuestionIndex] !== null) {
+                showAnswerFeedback();
+            }
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
+            document.getElementById('nextBtn').disabled = userAnswers[currentQuestionIndex] === null;
+            document.getElementById('nextBtn').textContent = currentQuestionIndex === totalQuestions - 1 ? 'Finish Quiz' : 'Next Question';
+        }
+
+        function showAnswerFeedback() {
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const userAnswer = userAnswers[currentQuestionIndex];
+            const optionsButtons = document.querySelectorAll('.option-button');
+
+            optionsButtons.forEach((btn, index) => {
+                btn.disabled = true;
+                if (index === question.correct) {
+                    btn.classList.add('correct');
+                } else if (index === userAnswer) {
+                    btn.classList.add('incorrect');
+                }
+            });
+        }
+
+        function selectAnswer(answerIndex) {
+            const alreadyAnswered = userAnswers[currentQuestionIndex] !== null;
+            
+            if (!alreadyAnswered) {
+                userAnswers[currentQuestionIndex] = answerIndex;
+                answeredQuestions.add(currentQuestionIndex);
+                
+                const question = currentQuiz.questions[currentQuestionIndex];
+                if (answerIndex === question.correct) {
+                    score++;
+                }
+            }
+            
+            showAnswerFeedback();
+            document.getElementById('nextBtn').disabled = false;
+            document.getElementById('scoreDisplay').textContent = `Score: ${score}/${answeredQuestions.size}`;
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            const totalQuestions = currentQuiz.questions.length;
+            if (currentQuestionIndex < totalQuestions - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function quitQuiz() {
+            if (confirm('Are you sure you want to quit this quiz? Your progress will be lost.')) {
+                goHome();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quizInterface').classList.add('hidden');
+            document.getElementById('resultsScreen').classList.remove('hidden');
+            
+            const totalQuestions = currentQuiz.questions.length;
+            let finalScore = 0;
+            for(let i=0; i < totalQuestions; i++) {
+                if(userAnswers[i] === currentQuiz.questions[i].correct) {
+                    finalScore++;
+                }
+            }
+            score = finalScore;
+
+            const percentage = Math.round((score / totalQuestions) * 100);
+            
+            document.getElementById('scoreText').textContent = `You scored ${score} out of ${totalQuestions} questions correctly`;
+            document.getElementById('scorePercentage').textContent = `${percentage}%`;
+            
+            const scoreIcon = document.getElementById('scoreIcon');
+            const scorePercentageElement = document.getElementById('scorePercentage');
+            
+            if (percentage >= 80) {
+                scoreIcon.textContent = '🎉';
+                scorePercentageElement.className = 'text-4xl font-bold mb-4 text-green-600';
+                document.getElementById('feedbackMessage').textContent = 'Excellent work! You\'re well-prepared for your Deloitte interview.';
+            } else if (percentage >= 60) {
+                scoreIcon.textContent = '👍';
+                scorePercentageElement.className = 'text-4xl font-bold mb-4 text-blue-600';
+                document.getElementById('feedbackMessage').textContent = 'Good job! Review the topics you missed and you\'ll be ready.';
+            } else {
+                scoreIcon.textContent = '📚';
+                scorePercentageElement.className = 'text-4xl font-bold mb-4 text-orange-600';
+                document.getElementById('feedbackMessage').textContent = 'Keep studying! Focus on the areas where you need improvement.';
+            }
+        }
+
+        function restartQuiz() {
+            startQuiz(Object.keys(quizData).find(key => quizData[key].title === currentQuiz.title));
+        }
+
+        function goHome() {
+            document.getElementById('resultsScreen').classList.add('hidden');
+            document.getElementById('quizInterface').classList.add('hidden');
+            document.getElementById('topicSelection').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
