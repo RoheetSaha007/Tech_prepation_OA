@@ -3,225 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deloitte Technical Skills Quiz - Job Preparation</title>
+    <title>Technical Skills Quiz - Top MNC Job Preparation</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .quiz-card {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
         }
         .quiz-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
         .option-button {
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         .option-button:hover:not(:disabled) {
-            background-color: #f3f4f6;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            transform: translateX(4px);
+        }
+        .option-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        .option-button:hover::before {
+            left: 100%;
         }
         .correct {
-            background-color: #10b981 !important;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
             color: white !important;
             border-color: #059669 !important;
+            animation: correctPulse 0.6s ease-in-out;
         }
         .incorrect {
-            background-color: #ef4444 !important;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
             color: white !important;
             border-color: #dc2626 !important;
+            animation: incorrectShake 0.6s ease-in-out;
         }
         .progress-bar {
-            transition: width 0.3s ease;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8, #1e40af);
+        }
+        @keyframes correctPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover-effect {
+            transition: all 0.3s ease;
+        }
+        .card-hover-effect:hover {
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        .floating-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .topic-icon {
+            transition: all 0.3s ease;
+        }
+        .quiz-card:hover .topic-icon {
+            transform: scale(1.2) rotate(5deg);
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-    <header class="bg-white shadow-lg border-b-4 border-blue-600">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-800">Deloitte Technical Skills Quiz</h1>
-                    <p class="text-gray-600 mt-1">Complete Job Preparation Platform</p>
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen">
+    <!-- Enhanced Header -->
+    <header class="gradient-bg shadow-2xl border-b-4 border-indigo-600">
+        <div class="container mx-auto px-4 sm:px-6 py-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between">
+                <div class="text-center sm:text-left mb-4 sm:mb-0">
+                    <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white floating-animation">🚀 Technical Skills Quiz</h1>
+                    <p class="text-blue-100 mt-2 text-sm sm:text-base">Complete Job Preparation Platform for Top MNCs</p>
                 </div>
-                <div class="text-right">
-                    <div class="text-sm text-gray-500">Total Questions</div>
-                    <div class="text-2xl font-bold text-blue-600" id="totalQuestions">260+</div>
+                <div class="text-center sm:text-right">
+                    <div class="text-xs sm:text-sm text-blue-200">Total Questions</div>
+                    <div class="text-xl sm:text-2xl font-bold text-white pulse-animation" id="totalQuestions">300+</div>
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="container mx-auto px-6 py-8">
+    <div class="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <!-- Enhanced Topic Selection -->
         <div id="topicSelection" class="space-y-8">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Choose Your Technical Domain</h2>
-                <p class="text-xl text-gray-600">Select a topic to start practicing questions for your Deloitte interview</p>
+            <div class="text-center mb-8 sm:mb-12 slide-in">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">Choose Your Technical Domain</h2>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Master the skills needed for top MNC interviews including Google, Microsoft, Amazon, Apple, and more!</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Updated all topic cards with comprehensive question counts -->
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-orange-500" onclick="startQuiz('aws')">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <!-- AWS Cloud -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-orange-500 card-hover-effect" onclick="startQuiz('aws')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">☁️</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-orange-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">☁️</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">AWS Cloud</h3>
-                            <p class="text-sm text-gray-500">35 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">AWS Cloud</h3>
+                            <p class="text-xs sm:text-sm text-orange-600 font-semibold">45 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">EC2, S3, Lambda, VPC, IAM, RDS, and more AWS services</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">EC2, S3, Lambda, VPC, IAM, RDS, and comprehensive AWS services</p>
                 </div>
 
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-green-500" onclick="startQuiz('testing')">
+                <!-- Software Testing -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-green-500 card-hover-effect" onclick="startQuiz('testing')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">✅</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">✅</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">Software Testing</h3>
-                            <p class="text-sm text-gray-500">35 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Software Testing</h3>
+                            <p class="text-xs sm:text-sm text-green-600 font-semibold">45 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">STLC, Defect Lifecycle, Testing Techniques, and QA processes</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">STLC, Defect Lifecycle, Testing Techniques, and QA processes</p>
                 </div>
 
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-blue-500" onclick="startQuiz('networking')">
+                <!-- Computer Networking -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-blue-500 card-hover-effect" onclick="startQuiz('networking')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">🌐</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">🌐</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">Computer Networking</h3>
-                            <p class="text-sm text-gray-500">40 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Networking</h3>
+                            <p class="text-xs sm:text-sm text-blue-600 font-semibold">50 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">OSI Model, TCP/IP, Protocols, and Network fundamentals</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">OSI Model, TCP/IP, Protocols, and Network fundamentals</p>
                 </div>
 
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-purple-500" onclick="startQuiz('os')">
+                <!-- Operating Systems -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-purple-500 card-hover-effect" onclick="startQuiz('os')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">💻</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">💻</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">Operating Systems</h3>
-                            <p class="text-sm text-gray-500">40 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Operating Systems</h3>
+                            <p class="text-xs sm:text-sm text-purple-600 font-semibold">50 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">Process Management, Memory, Scheduling, and OS concepts</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">Process Management, Memory, Scheduling, and OS concepts</p>
                 </div>
 
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-yellow-500" onclick="startQuiz('powerbi')">
+                <!-- Data Analysis & Power BI -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-yellow-500 card-hover-effect" onclick="startQuiz('powerbi')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">📈</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">📈</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">Data Analysis & Power BI</h3>
-                            <p class="text-sm text-gray-500">30 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Data Analysis</h3>
+                            <p class="text-xs sm:text-sm text-yellow-600 font-semibold">40 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">SQL, DAX, Power BI, Data Visualization, and Analytics</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">SQL, DAX, Power BI, Data Visualization, and Analytics</p>
                 </div>
 
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-red-500" onclick="startQuiz('security')">
+                <!-- Cybersecurity & C++ -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-red-500 card-hover-effect" onclick="startQuiz('security')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">🛡️</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">🛡️</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">Cybersecurity & C++</h3>
-                            <p class="text-sm text-gray-500">30 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Security & C++</h3>
+                            <p class="text-xs sm:text-sm text-red-600 font-semibold">40 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">Security Principles, Cloud Computing, and C++ Programming</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">Security Principles, Cloud Computing, and C++ Programming</p>
                 </div>
 
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-indigo-500" onclick="startQuiz('web')">
+                <!-- Web & Java -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-indigo-500 card-hover-effect" onclick="startQuiz('web')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">🌐</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">🌐</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">Web & Java</h3>
-                            <p class="text-sm text-gray-500">30 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Web & Java</h3>
+                            <p class="text-xs sm:text-sm text-indigo-600 font-semibold">40 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">HTML5, MS Office, Java Programming, and Web Technologies</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">HTML5, MS Office, Java Programming, and Web Technologies</p>
                 </div>
 
-                <div class="quiz-card bg-white rounded-xl shadow-lg p-6 cursor-pointer border-l-4 border-teal-500" onclick="startQuiz('sql')">
+                <!-- SQL Database -->
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-teal-500 card-hover-effect" onclick="startQuiz('sql')">
                     <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
-                            <span class="text-2xl">🗃️</span>
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-teal-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">🗃️</span>
                         </div>
-                        <div class="ml-4">
-                            <h3 class="text-xl font-bold text-gray-800">SQL Database</h3>
-                            <p class="text-sm text-gray-500">20 Questions</p>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">SQL Database</h3>
+                            <p class="text-xs sm:text-sm text-teal-600 font-semibold">40 Questions</p>
                         </div>
                     </div>
-                    <p class="text-gray-600 text-sm">Joins, Transactions, ACID properties, and Database operations</p>
+                    <p class="text-gray-600 text-xs sm:text-sm">Joins, Transactions, ACID properties, and Database operations</p>
                 </div>
             </div>
         </div>
 
-        <!-- Updated quiz interface with better navigation and progress tracking -->
-        <div id="quizInterface" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <h2 id="quizTitle" class="text-2xl font-bold text-gray-800"></h2>
-                        <p id="questionCounter" class="text-gray-600"></p>
+        <!-- Enhanced Quiz Interface -->
+        <div id="quizInterface" class="hidden slide-in">
+            <div class="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 mb-6 sm:mb-8 card-hover-effect">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6">
+                    <div class="mb-4 sm:mb-0">
+                        <h2 id="quizTitle" class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800"></h2>
+                        <p id="questionCounter" class="text-gray-600 text-sm sm:text-base"></p>
                     </div>
-                    <div class="flex space-x-3">
-                        <button id="prevBtn" onclick="previousQuestion()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                            Previous
+                    <div class="flex flex-wrap gap-2 sm:gap-3">
+                        <button id="prevBtn" onclick="previousQuestion()" class="px-3 py-2 sm:px-4 sm:py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base">
+                            ← Previous
                         </button>
-                        <button onclick="quitQuiz()" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                        <button onclick="quitQuiz()" class="px-3 py-2 sm:px-4 sm:py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all duration-300 text-sm sm:text-base">
                             Exit Quiz
                         </button>
                     </div>
                 </div>
                 
-                <div class="w-full bg-gray-200 rounded-full h-3">
-                    <div id="progressBar" class="progress-bar bg-blue-600 h-3 rounded-full" style="width: 0%"></div>
+                <div class="w-full bg-gray-200 rounded-full h-3 sm:h-4 mb-4">
+                    <div id="progressBar" class="progress-bar h-3 sm:h-4 rounded-full" style="width: 0%"></div>
                 </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
-                <h3 id="questionText" class="text-xl font-semibold text-gray-800 mb-6 leading-relaxed"></h3>
                 
-                <div id="optionsContainer" class="space-y-3">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-sm text-gray-600">
+                    <span id="scoreDisplay">Score: 0/0</span>
+                    <span class="mt-2 sm:mt-0">🎯 Aim for 80%+ for top MNC readiness!</span>
                 </div>
             </div>
 
-            <div class="flex justify-between">
-                <div class="text-sm text-gray-600">
-                    <span id="scoreDisplay">Score: 0/0</span>
+            <div class="bg-white rounded-2xl shadow-2xl p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8 card-hover-effect">
+                <h3 id="questionText" class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-800 mb-6 sm:mb-8 leading-relaxed"></h3>
+                
+                <div id="optionsContainer" class="space-y-3 sm:space-y-4">
                 </div>
-                <button id="nextBtn" onclick="nextQuestion()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-                    Next Question
+            </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <div class="text-sm text-gray-600 order-2 sm:order-1">
+                    <span id="scoreDisplay2">Score: 0/0</span>
+                </div>
+                <button id="nextBtn" onclick="nextQuestion()" class="order-1 sm:order-2 w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-semibold text-sm sm:text-base shadow-lg">
+                    Next Question →
                 </button>
             </div>
         </div>
 
-    <!-- Results Screen -->
-        <div id="resultsScreen" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-8 text-center max-w-2xl mx-auto">
+        <!-- Enhanced Results Screen -->
+        <div id="resultsScreen" class="hidden slide-in">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-12 text-center max-w-2xl mx-auto card-hover-effect">
                 <div class="mb-8">
-                    <div id="scoreIcon" class="text-6xl mb-4"></div>
-                    <h2 class="text-3xl font-bold text-gray-800 mb-2">Quiz Complete!</h2>
-                    <p id="scoreText" class="text-xl text-gray-600 mb-4"></p>
-                    <div id="scorePercentage" class="text-4xl font-bold mb-4"></div>
-                    <p id="feedbackMessage" class="text-lg text-gray-700 mb-8"></p>
+                    <div id="scoreIcon" class="text-5xl sm:text-6xl mb-4 floating-animation"></div>
+                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-4">Quiz Complete!</h2>
+                    <p id="scoreText" class="text-lg sm:text-xl text-gray-600 mb-4"></p>
+                    <div id="scorePercentage" class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"></div>
+                    <p id="feedbackMessage" class="text-base sm:text-lg text-gray-700 mb-8 max-w-lg mx-auto"></p>
                 </div>
                 
-                <div class="flex justify-center space-x-4">
-                    <button onclick="restartQuiz()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                        Retake Quiz
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button onclick="restartQuiz()" class="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 font-semibold shadow-lg">
+                        🔄 Retake Quiz
                     </button>
-                    <button onclick="goHome()" class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
-                        Choose Another Topic
+                    <button onclick="goHome()" class="w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-gray-500 to-gray-600 text-white rounded-xl hover:from-gray-600 hover:to-gray-700 transition-all duration-300 font-semibold shadow-lg">
+                        🏠 Choose Another Topic
                     </button>
                 </div>
             </div>
@@ -267,7 +342,17 @@
                     { question: "Which AWS service allows you to centrally manage your billing and control costs across multiple AWS accounts?", options: ["AWS Cost Explorer", "AWS Budgets", "AWS Organizations", "AWS Trusted Advisor"], correct: 2 },
                     { question: "What is the purpose of an Internet Gateway (IGW) in a VPC?", options: ["To provide a target in your route tables for internet-routable traffic.", "To act as a firewall for your instances.", "To allow instances in private subnets to access the internet.", "To provide a private connection to AWS services."], correct: 0 },
                     { question: "Amazon Aurora is a relational database compatible with which two open-source databases?", options: ["MySQL and MSSQL", "PostgreSQL and Oracle", "MySQL and PostgreSQL", "MariaDB and SQLite"], correct: 2 },
-                    { question: "Which AWS Well-Architected Framework pillar focuses on the ability of a system to recover from infrastructure or service disruptions?", options: ["Operational Excellence", "Security", "Reliability", "Performance Efficiency"], correct: 2 }
+                    { question: "Which AWS Well-Architected Framework pillar focuses on the ability of a system to recover from infrastructure or service disruptions?", options: ["Operational Excellence", "Security", "Reliability", "Performance Efficiency"], correct: 2 },
+                    { question: "Which service helps you analyze and visualize operational data such as logs and metrics in AWS?", options: ["AWS CloudTrail", "Amazon CloudWatch", "AWS Config", "AWS X-Ray"], correct: 1 },
+                    { question: "What is the main advantage of using AWS Elastic Beanstalk over manually managing EC2 instances?", options: ["Provides fine-grained control over OS settings", "Handles automatic provisioning, load balancing, and scaling", "Allows writing Infrastructure as Code in YAML", "Manages cross-region replication of databases"], correct: 1 },
+                    { question: "In AWS, what is the primary use of AWS Systems Manager?", options: ["Automate operational tasks across AWS resources", "Store application secrets securely", "Provide distributed denial of service (DDoS) protection", "Route traffic to multiple availability zones"], correct: 0 },
+                    { question: "Which service enables real-time processing of streaming data at massive scale?", options: ["AWS Batch", "Amazon Kinesis Data Streams", "Amazon Redshift", "AWS Glue"], correct: 1 },
+                    { question: "What is the primary use of AWS Trusted Advisor?", options: ["Audit application code for vulnerabilities", "Provide best practice recommendations for cost, performance, security, and fault tolerance", "Automate provisioning of EC2 instances", "Monitor DNS health across regions"], correct: 1 },
+                    { question: "When using AWS Auto Scaling, what is the purpose of a launch template?", options: ["To define how IAM roles are attached", "To specify instance configuration (AMI ID, instance type, key pair, etc.) used during scaling", "To manage database backups", "To configure VPC peering connections"], correct: 1 },
+                    { question: "Which AWS service is designed for long-term data archival where retrieval time of several hours is acceptable, but cost is minimized?", options: ["Amazon S3 Standard-IA", "Amazon EFS", "Amazon S3 Glacier Deep Archive", "Amazon Redshift"], correct: 2 },
+                    { question: "How does AWS Config help improve cloud governance?", options: ["By continuously monitoring and recording configuration changes to AWS resources", "By providing fully managed NoSQL database capabilities", "By automatically deploying containers", "By providing API management services"], correct: 0 },
+                    { question: "Which feature allows you to restrict access to your S3 bucket to specific IP address ranges?", options: ["Bucket Policies", "IAM Policies", "VPC Endpoints", "Security Groups"], correct: 0 },
+                    { question: "A company must ensure that EC2 instances across multiple accounts in an organization can be managed from a central location. Which service is most suitable for this requirement?", options: ["AWS Control Tower", "AWS Organizations", "AWS Systems Manager", "AWS Config"], correct: 2 }
                 ]
             },
             testing: {
@@ -307,7 +392,17 @@
                     { question: "What is the primary purpose of Sanity Testing?", options: ["To test all features of the application in-depth.", "To determine if a new build is stable enough to proceed with further testing.", "To check the application's performance.", "To test the application on different operating systems."], correct: 1 },
                     { question: "Which document outlines the scope, objective, and approach of the testing effort?", options: ["Test Case", "Defect Report", "Test Plan", "Test Summary Report"], correct: 2 },
                     { question: "The principle that states that a small number of modules usually contains most of the defects is known as:", options: ["The Pesticide Paradox", "Defect Clustering", "Absence of Errors Fallacy", "Early Testing"], correct: 1 },
-                    { question: "What is Usability Testing?", options: ["Testing if the application can be used by a large number of users.", "Testing the security of the application.", "Testing how easy and user-friendly the software is.", "Testing if all buttons on the UI work."], correct: 2 }
+                    { question: "What is Usability Testing?", options: ["Testing if the application can be used by a large number of users.", "Testing the security of the application.", "Testing how easy and user-friendly the software is.", "Testing if all buttons on the UI work."], correct: 2 },
+                    { question: "Which of the following is true about Monkey Testing?", options: ["Conducted only by developers", "Performed by random input without any script", "Focused on boundary value conditions", "Performed by automated tools only"], correct: 1 },
+                    { question: "What is a Test Harness in software testing?", options: ["A document defining test strategy", "A set of tools and test data used to execute tests automatically", "A manual testing process", "A tool used to report defects"], correct: 1 },
+                    { question: "Which is a key benefit of using Automated Testing?", options: ["Lower cost of setting up environments", "Faster execution of repetitive test cases", "Better manual test documentation", "More detailed bug reports"], correct: 1 },
+                    { question: "What is Equivalence Partitioning in software testing?", options: ["Grouping defects by severity", "Dividing application modules based on complexity", "A technique where test inputs are divided into valid and invalid classes to reduce test cases", "Splitting testing tasks equally among team members"], correct: 2 },
+                    { question: "In which situation is Exploratory Testing most useful?", options: ["When detailed automation scripts are available", "When there are clearly defined requirements", "When time is limited and testers need to explore functionality without predefined test cases", "When load testing is needed"], correct: 2 },
+                    { question: "What does 'Shift Left Testing' mean in software development?", options: ["Defects are identified during code development, not later phases", "Focuses only on non-functional aspects", "Testing is conducted by third-party vendors", "Testing is performed after deployment"], correct: 0 },
+                    { question: "Which testing type is most useful for ensuring data security compliance in an application?", options: ["Functional Testing", "Compatibility Testing", "Security Testing", "Performance Testing"], correct: 2 },
+                    { question: "What is the primary purpose of Negative Testing?", options: ["To check how the application behaves with invalid or unexpected input", "To test recovery from system crashes", "To verify that the application performs well under load", "To ensure the application functions as per requirements"], correct: 0 },
+                    { question: "Which of the following is true regarding Load Testing?", options: ["It validates functionality of application features", "It is only performed in production environment", "It ensures application stability under expected user traffic", "It tests system under unexpected crash scenarios"], correct: 2 },
+                    { question: "What is meant by the term 'Test Data Management'?", options: ["Documenting the test closure report", "The process of designing test cases", "The process of securing test environments", "The practice of designing, creating, and maintaining data used for testing"], correct: 3 }
                 ]
             },
             networking: {
@@ -352,7 +447,17 @@
                     { question: "A 'hub' operates at which layer of the OSI model?", options: ["Layer 1 (Physical)", "Layer 2 (Data Link)", "Layer 3 (Network)", "Layer 4 (Transport)"], correct: 0 },
                     { question: "What is APIPA (Automatic Private IP Addressing) used for?", options: ["To provide a secure VPN connection", "To assign an IP address to a device when a DHCP server is not available", "To translate public IPs to private IPs", "To speed up DNS resolution"], correct: 1 },
                     { question: "Which of the following is a routing protocol?", options: ["HTTP", "ARP", "OSPF", "SNMP"], correct: 2 },
-                    { question: "What is the primary difference between a Hub, a Switch, and a Router?", options: ["They all perform the same function", "A Hub is Layer 1, a Switch is Layer 2, and a Router is Layer 3", "A Router is for LANs, a Switch is for WANs", "A Hub is the most intelligent of the three"], correct: 1 }
+                    { question: "What is the primary difference between a Hub, a Switch, and a Router?", options: ["They all perform the same function", "A Hub is Layer 1, a Switch is Layer 2, and a Router is Layer 3", "A Router is for LANs, a Switch is for WANs", "A Hub is the most intelligent of the three"], correct: 1 },
+                    { question: "Which protocol provides dynamic IP address assignment to hosts?", options: ["SMTP", "ARP", "DHCP", "IMAP"], correct: 2 },
+                    { question: "What is the primary purpose of VLANs in a network?", options: ["To increase broadcast traffic", "To separate networks logically without physical separation", "To increase latency", "To limit network security"], correct: 1 },
+                    { question: "Which protocol helps in determining the path packets take to reach a destination?", options: ["ICMP", "IPSec", "HTTP", "RARP"], correct: 0 },
+                    { question: "Which port does HTTPS use by default?", options: ["80", "443", "21", "25"], correct: 1 },
+                    { question: "What is meant by jitter in networking?", options: ["Delay variation in packet delivery", "Packet loss rate", "Bandwidth utilization", "IP address conflict"], correct: 0 },
+                    { question: "Which layer of OSI model handles packet forwarding including routing through different routers?", options: ["Physical Layer", "Data Link Layer", "Transport Layer", "Network Layer"], correct: 3 },
+                    { question: "Which protocol uses port 53?", options: ["FTP", "SMTP", "DNS", "SNMP"], correct: 2 },
+                    { question: "What is a primary function of a proxy server?", options: ["To route packets between different networks", "To cache web pages and improve network performance", "To act as a firewall", "To provide DHCP services"], correct: 1 },
+                    { question: "What is the purpose of an IP address?", options: ["To encrypt data", "To uniquely identify a host on a network", "To assign MAC addresses", "To resolve domain names"], correct: 1 },
+                    { question: "What is the difference between TCP and UDP?", options: ["TCP is connection-oriented, UDP is connectionless", "TCP is used for video streaming, UDP for emails", "TCP uses smaller headers than UDP", "TCP operates at Layer 1, UDP at Layer 3"], correct: 0 }
                 ]
             },
             os: {
@@ -397,7 +502,17 @@
                     { question: "Which of the following best defines multitasking?", options: ["Running multiple programs by having the CPU switch between them very quickly.", "Using multiple CPUs to run a single program.", "Keeping multiple programs in memory.", "Allowing multiple users to use the system simultaneously."], correct: 0 },
                     { question: "What is an orphan process?", options: ["A process with no allocated memory.", "A process whose parent process has terminated before it.", "A process that cannot create child processes.", "A process running with root privileges."], correct: 1 },
                     { question: "In file systems, what is a hard link?", options: ["A shortcut to a file on the desktop.", "A separate file that points to the path of another file.", "A directory entry that associates a name with an inode number.", "A link that works across different file systems."], correct: 2 },
-                    { question: "What is the main difference between a monolithic kernel and a microkernel?", options: ["A microkernel is larger than a monolithic kernel.", "A monolithic kernel runs all OS services in kernel space, while a microkernel runs most services in user space.", "Monolithic kernels are only used in Windows.", "Microkernels do not support virtual memory."], correct: 1 }
+                    { question: "What is the main difference between a monolithic kernel and a microkernel?", options: ["A microkernel is larger than a monolithic kernel.", "A monolithic kernel runs all OS services in kernel space, while a microkernel runs most services in user space.", "Monolithic kernels are only used in Windows.", "Microkernels do not support virtual memory."], correct: 1 },
+                    { question: "Which system call provides synchronization of file data to disk?", options: ["open()", "sync()", "fork()", "exec()"], correct: 1 },
+                    { question: "Which method of process synchronization can result in busy waiting?", options: ["Semaphores", "Mutex locks", "Peterson's algorithm", "Spinlocks"], correct: 3 },
+                    { question: "Which of the following is NOT a valid condition for deadlock prevention?", options: ["Mutual exclusion", "Hold and Wait", "No preemption", "Bounded waiting"], correct: 3 },
+                    { question: "What is a direct-mapped cache?", options: ["Each block maps to multiple cache lines", "Each block maps to exactly one cache line", "Blocks are selected randomly", "Blocks are not stored in cache"], correct: 1 },
+                    { question: "Which strategy is used in the 'Clock' page replacement algorithm?", options: ["First-In-First-Out", "Least Recently Used approximation", "Random selection", "Most Recently Used"], correct: 1 },
+                    { question: "What is the role of the 'init' process in Unix/Linux?", options: ["To manage user sessions", "To bootstrap the system and spawn user processes", "To manage virtual memory", "To provide a graphical interface"], correct: 1 },
+                    { question: "What is the effect of priority inversion in scheduling?", options: ["High-priority task is blocked by a lower-priority task", "Processes are never scheduled", "All tasks execute in order of arrival", "No effect"], correct: 0 },
+                    { question: "What is the primary purpose of swap space in an OS?", options: ["To store logs", "To extend RAM by temporarily storing inactive pages", "To back up user data", "To execute system processes"], correct: 1 },
+                    { question: "Which of the following is true about microkernels?", options: ["They run most services in kernel space", "They require fewer context switches", "They run services in user space to enhance modularity", "They cannot support threads."], correct: 2 },
+                    { question: "Which of the following statements is correct about process states?", options: ["A process moves directly from 'new' to 'terminated'", "A process can be in running, waiting, ready, and blocked states", "A process cannot be blocked", "All processes start in the ready state"], correct: 1 }
                 ]
             },
             powerbi: {
@@ -432,7 +547,17 @@
                     { question: "What is the primary difference between structured and unstructured data?", options: ["Structured data is text-based; unstructured is numeric.", "Structured data has a predefined model (like a table); unstructured data does not (like an email).", "Structured data is always clean; unstructured is always messy.", "Structured data is smaller in size."], correct: 1 },
                     { question: "In Excel, what function would you use to join text from multiple cells into one cell?", options: ["JOIN()", "COMBINE()", "MERGE()", "CONCATENATE()"], correct: 3 },
                     { question: "Which SQL clause is used to sort the result set?", options: ["SORT BY", "ORDER BY", "GROUP BY", "ARRANGE BY"], correct: 1 },
-                    { question: "How would you handle missing numerical data in a dataset for analysis?", options: ["Delete the entire dataset.", "Always replace with zero.", "Replace with the mean, median, or a predictive value depending on context.", "Leave it as null."], correct: 2 }
+                    { question: "How would you handle missing numerical data in a dataset for analysis?", options: ["Delete the entire dataset.", "Always replace with zero.", "Replace with the mean, median, or a predictive value depending on context.", "Leave it as null."], correct: 2 },
+                    { question: "Which of the following is true about the Power BI Service?", options: ["It is used only for data modeling", "It provides cloud-based data visualization and report sharing", "It cannot refresh data", "It is used to write SQL queries"], correct: 1 },
+                    { question: "Which function in DAX helps calculate cumulative totals?", options: ["SUM()", "EARLIER()", "TOTALYTD()", "COUNTROWS()"], correct: 2 },
+                    { question: "Which data type is NOT supported in Power BI data model?", options: ["Integer", "Decimal", "Geospatial (GIS) types", "Binary Blob"], correct: 3 },
+                    { question: "What is the purpose of bookmarks in Power BI?", options: ["To save dataset schemas", "To capture the current state of a report page for navigation", "To write DAX measures", "To schedule data refresh"], correct: 1 },
+                    { question: "Which Power BI feature enables automated scheduled refresh of datasets?", options: ["Power Query Editor", "Dataflows", "Data Gateway", "Power BI Service"], correct: 2 },
+                    { question: "Which of the following is NOT a Power BI visual type?", options: ["Stacked Bar Chart", "Pie Chart", "Clustered Column Chart", "Neural Network Visual"], correct: 3 },
+                    { question: "How does Power BI handle relationships between tables by default?", options: ["Many-to-many", "One-to-one", "One-to-many", "No relationships"], correct: 2 },
+                    { question: "Which Power BI tool helps in advanced data preparation before visualization?", options: ["Power Query", "DAX", "Power Automate", "Power Apps"], correct: 0 },
+                    { question: "Which DAX function would you use to filter a table expression?", options: ["FILTER()", "CALCULATE()", "ALL()", "SUMX()"], correct: 0 },
+                    { question: "What happens when you publish a Power BI report to the Power BI Service?", options: ["The report becomes editable online", "The report becomes read-only and can be shared or scheduled for refresh", "The report is deleted", "Only data model is published"], correct: 1 }
                 ]
             },
             security: {
@@ -467,15 +592,22 @@
                     { question: "In C++, what is RAII (Resource Acquisition Is Initialization)?", options: ["A design pattern for error handling.", "A memory management technique where resource lifetime is tied to object lifetime.", "A type of inheritance.", "A compiler optimization."], correct: 1 },
                     { question: "Which of the following describes 'AAA' in cybersecurity?", options: ["Attack, Acknowledge, Announce", "Authentication, Authorization, and Accounting", "Access, Administer, Audit", "Application, Algorithm, Attack"], correct: 1 },
                     { question: "In C++, what is the difference between the stack and the heap?", options: ["Stack is for global variables, heap is for local variables.", "Stack memory is managed automatically (LIFO), while heap memory is managed manually by the programmer (`new`/`delete`).", "The heap is faster than the stack.", "There is no difference."], correct: 1 },
-                    { question: "What is a primary defense against ransomware?", options: ["Using a strong password.", "Keeping software updated and maintaining regular, offline backups.", "Disabling your firewall.", "Encrypting your own files first."], correct: 1 }
+                    { question: "What is a primary defense against ransomware?", options: ["Using a strong password.", "Keeping software updated and maintaining regular, offline backups.", "Disabling your firewall.", "Encrypting your own files first."], correct: 1 },
+                    { question: "Which C++ feature allows dynamic polymorphism?", options: ["Function overloading", "Virtual functions", "Operator overloading", "Friend functions"], correct: 1 },
+                    { question: "Which of the following is an example of a zero-day vulnerability?", options: ["A vulnerability publicly documented for years", "An unknown flaw exploited before a patch is released", "A vulnerability with an existing patch", "A misconfigured firewall rule"], correct: 1 },
+                    { question: "What is the primary purpose of a firewall in cybersecurity?", options: ["Encrypting data packets", "Blocking unauthorized access while permitting legitimate communication", "Performing backups", "Managing user authentication"], correct: 1 },
+                    { question: "In C++, what happens when you declare a function as `inline`?", options: ["The compiler replaces the function call with the function body where possible.", "It becomes a virtual function.", "It can only be called once.", "It disables optimizations."], correct: 0 },
+                    { question: "What is a 'logic bomb' in cybersecurity?", options: ["A malicious code triggered by specific conditions", "A powerful firewall rule", "A method to encrypt data", "An IP blocking tool"], correct: 0 },
+                    { question: "In C++, what is the primary role of the `friend` keyword?", options: ["Allowing functions or classes access to private/protected members of another class", "Defining a function to be inherited", "Declaring a private variable as public", "Preventing access to the class members"], correct: 0 },
+                    { question: "What is the primary purpose of a DMZ (Demilitarized Zone) in network security?", options: ["Isolate a part of the network accessible to external users from the internal network", "Accelerate internal database queries", "Prevent any external network communication", "Store encrypted data"], correct: 0 },
+                    { question: "Which of the following is NOT a valid C++ container in STL (Standard Template Library)?", options: ["vector", "list", "array", "tuple"], correct: 3 },
+                    { question: "What is a key purpose of using Hash Functions in security?", options: ["Encrypt messages for confidentiality", "Ensure data integrity by providing a fixed-length output", "Allow data deletion on demand", "Sort large datasets efficiently"], correct: 1 },
+                    { question: "What distinguishes a Stack Buffer Overflow attack?", options: ["Exploiting data at heap segments", "Overwriting adjacent memory on the stack to execute malicious code", "Brute-forcing user passwords", "Intercepting network packets"], correct: 1 }
                 ]
             },
             web: {
                 title: "Web Technologies & Java Quiz",
                 questions: [
-                    { question: "Which HTML5 element defines navigation links?", options: ["<footer>", "<nav>", "<section>", "<header>"], correct: 1 },
-                    { question: "The <canvas> element in HTML5 is used for:", options: ["Creating video maps", "Drawing graphics via scripting", "Capturing user inputs", "Embedding forms"], correct: 1 },
-                    { question: "Which semantic tag indicates self-contained content independent from the rest?", options: ["<div>", "<article>", "<span>", "<section>"], correct: 1 },
                     { question: "Which attribute in HTML5 ensures input fields cannot be left blank?", options: ["required", "validate", "mandatory", "pattern"], correct: 0 },
                     { question: "Which HTML5 API allows client-side storage up to several megabytes?", options: ["Cookies API", "Local Storage API", "Flash Storage API", "Session Cookies API"], correct: 1 },
                     { question: "What is the primary benefit of using Web Workers in HTML5?", options: ["Storing data offline", "Running scripts in the background without freezing the UI", "Drawing graphics on the screen", "Embedding video content"], correct: 1 },
@@ -501,8 +633,18 @@
                     { question: "In Java, what is the purpose of the `final` keyword?", options: ["To indicate a method can be overridden.", "To create a constant variable, prevent method overriding, and prevent class inheritance.", "To mark a method for garbage collection.", "To make a method visible only within its package."], correct: 1 },
                     { question: "What is the difference between `null` and `undefined` in JavaScript?", options: ["They are identical.", "`undefined` means a variable has been declared but not assigned a value, while `null` is an assignment value.", "`null` is for numbers, `undefined` is for strings.", "A `null` variable throws an error."], correct: 1 },
                     { question: "Which Java collection class provides a resizable array implementation?", options: ["LinkedList", "HashSet", "ArrayList", "TreeMap"], correct: 2 },
-                    { question: "What is the purpose of the `alt` attribute on an `<img>` tag in HTML?", options: ["To provide alternative text for an image if it cannot be displayed.", "To align the image.", "To set the image's animation.", "To link the image to another page."], correct: 0 },
-                    { question: "In Java, what is the difference between method overloading and overriding?", options: ["Overloading is done in a subclass, overriding in the same class.", "Overloading involves methods with the same name but different parameters; overriding is a subclass providing its own implementation of a superclass method.", "Overriding changes the return type only.", "They are the same concept."], correct: 1 }
+                    { question: "What is the purpose of the `alt` attribute on an <img> tag in HTML?", options: ["To provide alternative text for an image if it cannot be displayed.", "To align the image.", "To set the image's animation.", "To link the image to another page."], correct: 0 },
+                    { question: "In Java, what is the difference between method overloading and overriding?", options: ["Overloading is done in a subclass, overriding in the same class.", "Overloading involves methods with the same name but different parameters; overriding is a subclass providing its own implementation of a superclass method.", "Overriding changes the return type only.", "They are the same concept."], correct: 1 },
+                    { question: "Which JavaScript method is used to parse a JSON string into an object?", options: ["JSON.stringify()", "JSON.parse()", "JSON.decode()", "JSON.convert()"], correct: 1 },
+                    { question: "What is the purpose of the 'defer' attribute in the <script> tag in HTML?", options: ["Execute script before HTML is parsed", "Execute script after the document is parsed but before DOMContentLoaded", "Prevent script execution", "Execute script in parallel with HTML parsing"], correct: 1 },
+                    { question: "In Java, what is the significance of the `transient` keyword?", options: ["Marks a variable to be ignored during serialization", "Marks a method to be private", "Indicates a class cannot be extended", "Ensures a variable is constant"], correct: 0 },
+                    { question: "Which CSS property controls the stacking order of overlapping elements?", options: ["z-index", "position", "stack-order", "layer-order"], correct: 0 },
+                    { question: "Which HTTP status code indicates a successful request?", options: ["404", "500", "200", "301"], correct: 2 },
+                    { question: "In Java, which exception is thrown when an array is accessed with an invalid index?", options: ["NullPointerException", "IndexOutOfBoundsException", "ClassCastException", "IllegalArgumentException"], correct: 1 },
+                    { question: "What is CORS in web development?", options: ["Cookie Optimization Resource Sharing", "Cross-Origin Resource Sharing", "Control Object Resource Standard", "Content Object Response Service"], correct: 1 },
+                    { question: "Which JavaScript keyword is used to define a constant?", options: ["constant", "let", "const", "immutable"], correct: 2 },
+                    { question: "Which of the following is NOT a valid way to select elements in CSS?", options: [".class", "#id", "*element", "::pseudo-element"], correct: 2 },
+                    { question: "What is the purpose of the `super` keyword in Java?", options: ["Refers to a static method", "Refers to the parent class's constructor or methods", "Defines an interface method", "Refers to a global variable"], correct: 1 }
                 ]
             },
             sql: {
@@ -527,7 +669,27 @@
                     { question: "What is a database view?", options: ["A backup of a table.", "A stored result of a query that can be queried like a table.", "An index on a table.", "A log of all database transactions."], correct: 1 },
                     { question: "Which aggregate function returns the number of rows?", options: ["SUM()", "AVG()", "COUNT()", "MAX()"], correct: 2 },
                     { question: "What is a subquery in SQL?", options: ["A query that is nested inside another query.", "A query used to create a view.", "A query that cannot return any data.", "A special type of JOIN."], correct: 0 },
-                    { question: "Which SQL command is used to change the data in a table?", options: ["MODIFY", "UPDATE", "CHANGE", "ALTER"], correct: 1 }
+                    { question: "Which SQL command is used to change the data in a table?", options: ["MODIFY", "UPDATE", "CHANGE", "ALTER"], correct: 1 },
+                    { question: "What happens if you try to insert a NULL value into a column with NOT NULL constraint?", options: ["The column defaults to 0", "An error is thrown and the row is not inserted", "The NULL value is automatically converted to an empty string", "The row is inserted without the column"], correct: 1 },
+                    { question: "Which isolation level prevents dirty reads but allows non-repeatable reads?", options: ["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"], correct: 1 },
+                    { question: "What is the purpose of the EXPLAIN keyword in SQL?", options: ["Execute the query faster", "Show query execution plan", "Explain table relationships", "Validate SQL syntax"], correct: 1 },
+                    { question: "Which of the following is NOT true about a UNIQUE constraint in SQL?", options: ["It prevents duplicate values in a column", "Multiple UNIQUE constraints can be defined per table", "It allows multiple NULL values", "It automatically creates an index"], correct: 2 },
+                    { question: "What is the role of a trigger in a database?", options: ["Automatically executes a predefined action in response to an event", "Performs backup of the table", "Creates a temporary table for testing", "Validates data before insertion"], correct: 0 },
+                    { question: "What is the difference between a clustered and a non-clustered index?", options: ["A clustered index stores data in order of the index, non-clustered stores separately", "Clustered indexes are only for primary keys", "Non-clustered indexes speed up write operations", "They are the same"], correct: 0 },
+                    { question: "What does the ROLLUP extension in GROUP BY do?", options: ["Creates subtotals and grand totals", "Performs data rollback", "Rolls data into another table", "Drops grouped columns"], correct: 0 },
+                    { question: "Which SQL statement prevents duplicate rows in a table?", options: ["INSERT IGNORE", "INSERT UNIQUE", "SELECT DISTINCT", "INSERT PRIMARY"], correct: 2 },
+                    { question: "What is a stored procedure?", options: ["A predefined SQL query stored in the database", "A temporary table", "A special type of index", "A trigger"], correct: 0 },
+                    { question: "How can you enforce referential integrity between two tables?", options: ["Using CHECK constraints", "Using PRIMARY KEY only", "Using FOREIGN KEY constraints", "By using TRIGGERS"], correct: 2 },
+                    { question: "Which function returns the current date and time in SQL?", options: ["GETDATE()", "NOW()", "CURRENT_TIMESTAMP", "DATE()"], correct: 2 },
+                    { question: "What is the effect of the CASCADE option in FOREIGN KEY constraints?", options: ["Automatically deletes or updates related rows in child tables", "Prevents deletion of parent rows", "Generates a report of relationships", "Nothing"], correct: 0 },
+                    { question: "Which SQL keyword is used to remove duplicate rows from a query result?", options: ["REMOVE DUPLICATES", "DELETE UNIQUE", "DISTINCT", "UNIQUE"], correct: 2 },
+                    { question: "What does the term 'sharding' in databases mean?", options: ["Distributing data horizontally across multiple machines", "Creating backups of databases", "Storing data in multiple columns", "Splitting a large table into many small ones without replication"], correct: 0 },
+                    { question: "What is the purpose of a composite key?", options: ["To combine multiple primary keys", "To uniquely identify a row using multiple columns", "To enforce data type restrictions", "To speed up complex queries"], correct: 1 },
+                    { question: "Which SQL command deletes a table structure permanently?", options: ["DELETE", "DROP", "TRUNCATE", "REMOVE"], correct: 1 },
+                    { question: "What is the default isolation level in most relational databases?", options: ["Serializable", "Read Committed", "Read Uncommitted", "Repeatable Read"], correct: 1 },
+                    { question: "What happens if a transaction is not explicitly committed in SQL?", options: ["Changes are automatically committed", "Changes are discarded on session end", "Database locks permanently", "It results in a syntax error"], correct: 1 },
+                    { question: "Which aggregate function ignores NULL values?", options: ["SUM()", "AVG()", "COUNT()", "MAX()"], correct: 1 },
+                    { question: "What is the purpose of the WITH clause (Common Table Expression - CTE)?", options: ["Defines temporary named result sets for easier reuse in queries", "Permits deletion of tables in batches", "Improves storage of indexed columns", "Provides detailed error messages"], correct: 0 }
                 ]
             }
         };
@@ -564,14 +726,15 @@
             document.getElementById('progressBar').style.width = `${((currentQuestionIndex + 1) / totalQuestions) * 100}%`;
             document.getElementById('questionText').textContent = question.question;
             document.getElementById('scoreDisplay').textContent = `Score: ${score}/${answeredQuestions.size}`;
+            document.getElementById('scoreDisplay2').textContent = `Score: ${score}/${answeredQuestions.size}`;
             
             const optionsContainer = document.getElementById('optionsContainer');
             optionsContainer.innerHTML = '';
             
             question.options.forEach((option, index) => {
                 const optionButton = document.createElement('button');
-                optionButton.className = 'option-button w-full text-left p-4 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors text-gray-700';
-                optionButton.innerHTML = `<span class="font-medium mr-2">${String.fromCharCode(65 + index)})</span> ${option}`;
+                optionButton.className = 'option-button w-full text-left p-3 sm:p-4 border-2 border-gray-300 rounded-xl hover:bg-gray-100 transition-all duration-300 text-gray-700 text-sm sm:text-base';
+                optionButton.innerHTML = `<span class="font-bold mr-2 sm:mr-3 text-blue-600">${String.fromCharCode(65 + index)})</span> ${option}`;
                 optionButton.onclick = () => selectAnswer(index);
                 optionsContainer.appendChild(optionButton);
             });
@@ -583,7 +746,7 @@
             // Update navigation buttons
             document.getElementById('prevBtn').disabled = currentQuestionIndex === 0;
             document.getElementById('nextBtn').disabled = userAnswers[currentQuestionIndex] === null;
-            document.getElementById('nextBtn').textContent = currentQuestionIndex === totalQuestions - 1 ? 'Finish Quiz' : 'Next Question';
+            document.getElementById('nextBtn').textContent = currentQuestionIndex === totalQuestions - 1 ? 'Finish Quiz 🏁' : 'Next Question →';
         }
 
         function showAnswerFeedback() {
@@ -617,6 +780,7 @@
             showAnswerFeedback();
             document.getElementById('nextBtn').disabled = false;
             document.getElementById('scoreDisplay').textContent = `Score: ${score}/${answeredQuestions.size}`;
+            document.getElementById('scoreDisplay2').textContent = `Score: ${score}/${answeredQuestions.size}`;
         }
 
         function previousQuestion() {
@@ -665,16 +829,16 @@
             
             if (percentage >= 80) {
                 scoreIcon.textContent = '🎉';
-                scorePercentageElement.className = 'text-4xl font-bold mb-4 text-green-600';
-                document.getElementById('feedbackMessage').textContent = 'Excellent work! You\'re well-prepared for your Deloitte interview.';
+                scorePercentageElement.className = 'text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-green-600';
+                document.getElementById('feedbackMessage').textContent = 'Excellent work! You\'re well-prepared for top MNC interviews including Google, Microsoft, Amazon, and more!';
             } else if (percentage >= 60) {
                 scoreIcon.textContent = '👍';
-                scorePercentageElement.className = 'text-4xl font-bold mb-4 text-blue-600';
-                document.getElementById('feedbackMessage').textContent = 'Good job! Review the topics you missed and you\'ll be ready.';
+                scorePercentageElement.className = 'text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-blue-600';
+                document.getElementById('feedbackMessage').textContent = 'Good job! Review the topics you missed and you\'ll be ready for top tech companies.';
             } else {
                 scoreIcon.textContent = '📚';
-                scorePercentageElement.className = 'text-4xl font-bold mb-4 text-orange-600';
-                document.getElementById('feedbackMessage').textContent = 'Keep studying! Focus on the areas where you need improvement.';
+                scorePercentageElement.className = 'text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-orange-600';
+                document.getElementById('feedbackMessage').textContent = 'Keep studying! Focus on the areas where you need improvement to crack top MNC interviews.';
             }
         }
 
@@ -687,6 +851,25 @@
             document.getElementById('quizInterface').classList.add('hidden');
             document.getElementById('topicSelection').classList.remove('hidden');
         }
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (document.getElementById('quizInterface').classList.contains('hidden')) return;
+            
+            if (event.key >= '1' && event.key <= '4') {
+                const optionIndex = parseInt(event.key) - 1;
+                const optionButtons = document.querySelectorAll('.option-button');
+                if (optionButtons[optionIndex] && !optionButtons[optionIndex].disabled) {
+                    selectAnswer(optionIndex);
+                }
+            } else if (event.key === 'ArrowLeft') {
+                previousQuestion();
+            } else if (event.key === 'ArrowRight' || event.key === 'Enter') {
+                if (!document.getElementById('nextBtn').disabled) {
+                    nextQuestion();
+                }
+            }
+        });
     </script>
 </body>
 </html>
