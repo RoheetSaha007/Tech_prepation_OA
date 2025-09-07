@@ -204,7 +204,18 @@
                     </div>
                     <p class="text-gray-600 text-xs sm:text-sm">Security Principles, Cloud Computing, and C++ Programming</p>
                 </div>
-
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-gray-500 card-hover-effect" onclick="startQuiz('backend')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">⚙️</span>
+                        </div>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Backend & API</h3>
+                            <p class="text-xs sm:text-sm text-gray-600 font-semibold">30 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-xs sm:text-sm">REST, HTTP methods, Authentication, and API fundamentals</p>
+                </div>
                 <!-- Web & Java -->
                 <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-indigo-500 card-hover-effect" onclick="startQuiz('web')">
                     <div class="flex items-center mb-4">
@@ -217,6 +228,30 @@
                         </div>
                     </div>
                     <p class="text-gray-600 text-xs sm:text-sm">HTML5, MS Office, Java Programming, and Web Technologies</p>
+                </div>
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-pink-500 card-hover-effect" onclick="startQuiz('javacpp')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">👨‍💻</span>
+                        </div>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Java & C++ Concepts</h3>
+                            <p class="text-xs sm:text-sm text-pink-600 font-semibold">27 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-xs sm:text-sm">Core OOP concepts, language features, and memory management</p>
+                </div>
+                <div class="quiz-card bg-white rounded-2xl shadow-lg p-4 sm:p-6 cursor-pointer border-l-4 border-gray-700 card-hover-effect" onclick="startQuiz('linux')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gray-100 rounded-xl flex items-center justify-center topic-icon">
+                            <span class="text-xl sm:text-2xl">🐧</span>
+                        </div>
+                        <div class="ml-3 sm:ml-4">
+                            <h3 class="text-lg sm:text-xl font-bold text-gray-800">Advanced Linux</h3>
+                            <p class="text-xs sm:text-sm text-gray-600 font-semibold">48 Questions</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 text-xs sm:text-sm">Commands, permissions, system files, and core concepts</p>
                 </div>
 
                 <!-- SQL Database -->
@@ -355,6 +390,59 @@
                     { question: "A company must ensure that EC2 instances across multiple accounts in an organization can be managed from a central location. Which service is most suitable for this requirement?", options: ["AWS Control Tower", "AWS Organizations", "AWS Systems Manager", "AWS Config"], correct: 2 }
                 ]
             },
+            linux: {
+                title: "Advanced Linux Quiz",
+                questions: [
+                    { question: "Which command is used to display the current user's username?", options: ["whoami", "id", "uname", "users"], correct: 0 },
+                    { question: "What is the purpose of the 'cron' daemon in Linux?", options: ["To manage file permissions", "To schedule tasks at specific times", "To control network interfaces", "To monitor disk usage"], correct: 1 },
+                    { question: "Which command shows currently running processes?", options: ["ps", "ls", "df", "cat"], correct: 0 },
+                    { question: "What does the 'chmod 755 filename' command do?", options: ["Sets read, write, execute for owner; read and execute for group and others", "Sets read, write for all users", "Removes all permissions", "Only sets execute permission for owner"], correct: 0 },
+                    { question: "Which file stores user account information in Linux?", options: ["/etc/passwd", "/etc/group", "/etc/shadow", "/etc/profile"], correct: 0 },
+                    { question: "What is the function of the 'ulimit' command?", options: ["Sets file permissions", "Limits user resources like memory and CPU", "Changes file ownership", "Starts a system service"], correct: 1 },
+                    { question: "Which command displays disk usage of files and directories?", options: ["df", "du", "lsblk", "mount"], correct: 1 },
+                    { question: "What does the 'top' command display?", options: ["Disk usage", "Network statistics", "Real-time process usage", "Memory allocation per file"], correct: 2 },
+                    { question: "Which directory contains device files in Linux?", options: ["/etc", "/var", "/dev", "/home"], correct: 2 },
+                    { question: "What is the default shell in most Linux distributions?", options: ["sh", "bash", "zsh", "csh"], correct: 1 },
+                    { question: "Which command is used to change file ownership?", options: ["chmod", "chown", "chgrp", "usermod"], correct: 1 },
+                    { question: "What does the 'ln -s' command do?", options: ["Creates a symbolic link", "Changes file permissions", "Displays network connections", "Creates a hard link"], correct: 0 },
+                    { question: "Which command is used to display mounted filesystems?", options: ["mount", "df", "lsblk", "blkid"], correct: 0 },
+                    { question: "What is the role of the /etc/fstab file?", options: ["Stores user passwords", "Defines static file system mounts", "Logs system errors", "Manages system services"], correct: 1 },
+                    { question: "Which command is used to display kernel messages?", options: ["dmesg", "journalctl", "syslog", "kernctl"], correct: 0 },
+                    { question: "How do you change a file to be immutable?", options: ["chmod +i filename", "chattr +i filename", "lsattr filename", "setfacl filename"], correct: 1 },
+                    { question: "What is the purpose of the 'grep' command?", options: ["To change file permissions", "To search text in files", "To display system logs", "To copy files"], correct: 1 },
+                    { question: "Which command is used to display network interfaces and configuration?", options: ["ifconfig", "netstat", "route", "ip addr"], correct: 3 },
+                    { question: "What is the function of the 'swap' partition?", options: ["Stores system logs", "Stores temporary files", "Provides virtual memory when RAM is full", "Backs up system data"], correct: 2 },
+                    { question: "Which command schedules a job at a specific time only once?", options: ["cron", "at", "systemd timer", "batch"], correct: 1 },
+                    { question: "What is the purpose of /proc in Linux?", options: ["Stores device configurations", "Stores dynamic kernel and process info", "Stores user home directories", "Stores boot logs"], correct: 1 },
+                    { question: "Which option in 'mount' command allows mounting with read-write permissions?", options: ["-o ro", "-o rw", "-o remount", "-o bind"], correct: 1 },
+                    { question: "Which command monitors real-time file system changes?", options: ["inotifywait", "watch", "lsof", "strace"], correct: 0 },
+                    { question: "What does the 'strace' command do?", options: ["Traces system calls and signals", "Monitors memory usage", "Shows network traffic", "Manages user permissions"], correct: 0 },
+                    { question: "Which command is used to archive files in Linux?", options: ["tar", "zip", "unzip", "gzip"], correct: 0 },
+                    { question: "What is the main configuration file for systemd?", options: ["/etc/systemd/system.conf", "/etc/init.d/", "/etc/system.conf", "/etc/sysconfig/systemd"], correct: 0 },
+                    { question: "What does the 'df -h' command show?", options: ["Memory usage", "Disk usage in human-readable format", "File system permissions", "Kernel version"], correct: 1 },
+                    { question: "Which command is used to find files by name?", options: ["find / -name filename", "grep filename", "locate filename", "whereis filename"], correct: 0 },
+                    { question: "Which option in 'ps' command shows all running processes?", options: ["-a", "-e", "-x", "-l"], correct: 1 },
+                    { question: "What does the /etc/hosts file contain?", options: ["User credentials", "Static IP-to-hostname mappings", "Network routes", "System kernel parameters"], correct: 1 },
+                    { question: "What is the function of the 'iptables' command?", options: ["Configure system services", "Manage network firewall rules", "Show open files", "List block devices"], correct: 1 },
+                    { question: "Which command is used to check the system's memory usage?", options: ["free -m", "memstat", "top", "vmstat"], correct: 0 },
+                    { question: "Which file stores system log messages?", options: ["/var/log/syslog", "/etc/log/syslog", "/usr/log/messages", "/var/log/messages"], correct: 3 },
+                    { question: "Which command displays currently active network connections?", options: ["netstat -tuln", "ifconfig -a", "ping -c 4", "traceroute"], correct: 0 },
+                    { question: "What does the 'alias' command do in shell?", options: ["Creates shortcuts for commands", "Lists installed packages", "Changes user permissions", "Sets environment variables"], correct: 0 },
+                    { question: "Which file controls user login shells and environment settings?", options: ["/etc/passwd", "/etc/profile", "/etc/shells", "~/.bashrc"], correct: 1 },
+                    { question: "Which command is used to display group memberships of a user?", options: ["groups username", "id username", "whoami username", "groupmod username"], correct: 0 },
+                    { question: "What is SELinux used for in Linux?", options: ["Networking configuration", "Access control security framework", "File system management", "Package installation"], correct: 1 },
+                    { question: "Which command is used to check open files by processes?", options: ["lsof", "ls", "file", "openproc"], correct: 0 },
+                    { question: "What is the purpose of the 'nohup' command?", options: ["Prevents user logins", "Runs commands immune to hangups", "Monitors system health", "Kills processes running in background"], correct: 1 },
+                    { question: "Which file contains system-wide environment variable settings?", options: ["/etc/environment", "/etc/bashrc", "/etc/profile", "/home/user/.bash_profile"], correct: 0 },
+                    { question: "What does the 'chmod 600 file' command do?", options: ["Gives full permissions to everyone", "Gives read-write to owner only", "Gives execute permission to everyone", "Removes all permissions"], correct: 1 },
+                    { question: "Which command is used to display and manage disk partitions?", options: ["fdisk", "mkfs", "fsck", "mount"], correct: 0 },
+                    { question: "What does the 'chroot' command do?", options: ["Changes file permissions", "Changes the root directory for a process", "Changes user groups", "Resets system logs"], correct: 1 },
+                    { question: "Which command displays currently logged in users?", options: ["w", "who", "users", "id"], correct: 1 },
+                    { question: "What does the 'mount --bind' option do?", options: ["Binds a process to a specific CPU", "Remounts a directory in a different location", "Enables disk encryption", "Sets user limits"], correct: 1 },
+                    { question: "Which command is used to manually reload systemd units?", options: ["systemctl restart", "systemctl reload", "systemctl daemon-reload", "service reload"], correct: 2 },
+                    { question: "What does the 'dd' command primarily do?", options: ["Delete files", "Display disk usage", "Copy and convert files at block level", "Manage system processes"], correct: 2 }
+                ]
+            },
             testing: {
                 title: "Software Testing Quiz",
                 questions: [
@@ -403,6 +491,38 @@
                     { question: "What is the primary purpose of Negative Testing?", options: ["To check how the application behaves with invalid or unexpected input", "To test recovery from system crashes", "To verify that the application performs well under load", "To ensure the application functions as per requirements"], correct: 0 },
                     { question: "Which of the following is true regarding Load Testing?", options: ["It validates functionality of application features", "It is only performed in production environment", "It ensures application stability under expected user traffic", "It tests system under unexpected crash scenarios"], correct: 2 },
                     { question: "What is meant by the term 'Test Data Management'?", options: ["Documenting the test closure report", "The process of designing test cases", "The process of securing test environments", "The practice of designing, creating, and maintaining data used for testing"], correct: 3 }
+                ]
+            },
+            javacpp: {
+                title: "Java & C++ Conceptual Quiz",
+                questions: [
+                    { question: "Which of the following is not a feature of Object-Oriented Programming?", options: ["Encapsulation", "Inheritance", "Polymorphism", "Procedural Programming"], correct: 3 },
+                    { question: "Which keyword is used to define a constant variable in Java?", options: ["final", "constant", "static", "immutable"], correct: 0 },
+                    { question: "Which of the following is the default value of a boolean variable in Java?", options: ["true", "false", "null", "undefined"], correct: 1 },
+                    { question: "Which of the following is not a valid access modifier in Java?", options: ["private", "protected", "public", "default"], correct: 3 },
+                    { question: "Which of the following is used to handle exceptions in Java?", options: ["try-catch", "throw-throws", "finally", "All of the above"], correct: 3 },
+                    { question: "Which of the following is used to define a class in C++?", options: ["class ClassName {}", "class ClassName[]", "define ClassName {}", "struct ClassName {}"], correct: 0 },
+                    { question: "Which of the following is not a valid data type in C++?", options: ["int", "float", "boolean", "long"], correct: 2 },
+                    { question: "Which operator is used to access members of a class in C++?", options: ["->", ".", "::", "&"], correct: 0 },
+                    { question: "Which of the following is used to allocate memory dynamically in C++?", options: ["malloc()", "new", "calloc()", "All of the above"], correct: 1 },
+                    { question: "Which of the following is the correct syntax for a constructor in C++?", options: ["void ClassName()", "ClassName()", "constructor ClassName()", "ClassName constructor()"], correct: 1 },
+                    { question: "What is the purpose of garbage collection in Java?", options: ["Manually delete objects", "Automatically manage memory by deleting unreachable objects", "Store temporary files", "Optimize CPU usage"], correct: 1 },
+                    { question: "Which Java keyword is used to inherit a class?", options: ["implements", "inherits", "extends", "derived"], correct: 2 },
+                    { question: "In C++, what does the 'virtual' keyword do in class methods?", options: ["Prevents overriding", "Enables method overriding at runtime", "Inlines method", "Prevents inheritance"], correct: 1 },
+                    { question: "What happens if a method in Java is marked as 'abstract'?", options: ["It must have a body", "It must be implemented by a subclass", "It can be private", "It cannot be overridden"], correct: 1 },
+                    { question: "Which of the following is not a valid loop construct in Java?", options: ["for", "while", "loop", "do-while"], correct: 2 },
+                    { question: "What is the default behavior of the 'new' operator in C++?", options: ["Creates an object on the stack", "Creates an object on the heap and returns a pointer", "Throws an exception", "Compiles to inline code"], correct: 1 },
+                    { question: "Which concept refers to hiding implementation details in OOP?", options: ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"], correct: 2 },
+                    { question: "What is the purpose of the 'static' keyword in Java?", options: ["Denotes methods that belong to the class rather than instances", "Prevents method overriding", "Creates private variables", "Declares constants"], correct: 0 },
+                    { question: "Which of the following is true about function overloading in C++?", options: ["Functions must have the same parameter names", "Return type differentiates overloaded functions", "Functions must differ in the number or type of parameters", "Only one function is allowed"], correct: 2 },
+                    { question: "Which Java interface provides methods for sorting collections of objects?", options: ["Comparable", "Comparator", "Iterable", "Serializable"], correct: 1 },
+                    { question: "Which is not a valid way to declare an array in C++?", options: ["int arr[5];", "int[] arr = new int[5];", "array<int,5> arr;", "int arr();"], correct: 3 },
+                    { question: "Which exception is thrown when accessing an invalid array index in Java?", options: ["NullPointerException", "ArrayIndexOutOfBoundsException", "IllegalArgumentException", "FileNotFoundException"], correct: 1 },
+                    { question: "In C++, what does the 'const' keyword do when applied to a function parameter?", options: ["Prevents modification of the argument inside the function", "Prevents the function from returning a value", "Allocates the variable in ROM", "Removes the argument from the stack"], correct: 0 },
+                    { question: "Which of the following is not a valid Java primitive data type?", options: ["int", "boolean", "char", "string"], correct: 3 },
+                    { question: "What is the role of the 'super' keyword in Java?", options: ["To call a superclass constructor or method", "To refer to static methods", "To indicate method overriding", "To mark variables as global"], correct: 0 },
+                    { question: "What is a reference in C++?", options: ["A pointer to a memory address", "An alias for an existing variable", "A new memory location", "A special constant"], correct: 1 },
+                    { question: "Which statement about Java interfaces is true?", options: ["Interfaces cannot contain variables", "Interfaces can have default methods with implementation", "Interfaces must have exactly one method", "Interfaces can be instantiated directly"], correct: 1 }
                 ]
             },
             networking: {
@@ -645,6 +765,41 @@
                     { question: "Which JavaScript keyword is used to define a constant?", options: ["constant", "let", "const", "immutable"], correct: 2 },
                     { question: "Which of the following is NOT a valid way to select elements in CSS?", options: [".class", "#id", "*element", "::pseudo-element"], correct: 2 },
                     { question: "What is the purpose of the `super` keyword in Java?", options: ["Refers to a static method", "Refers to the parent class's constructor or methods", "Defines an interface method", "Refers to a global variable"], correct: 1 }
+                ]
+            },
+            backend: {
+                title: "Backend & API Quiz",
+                questions: [
+                    { question: "Which HTTP method is used to retrieve data from a server?", options: ["GET", "POST", "PUT", "DELETE"], correct: 0 },
+                    { question: "Which HTTP method is used to create a new resource?", options: ["GET", "POST", "PUT", "PATCH"], correct: 1 },
+                    { question: "What does REST stand for?", options: ["Representational State Transfer", "Reliable Service Transfer", "Rapid System Technology", "Remote Server Transfer"], correct: 0 },
+                    { question: "Which status code indicates that a resource was successfully created?", options: ["201", "200", "404", "500"], correct: 0 },
+                    { question: "What is the purpose of JWT (JSON Web Token)?", options: ["User authentication and session management", "Encrypting database files", "Managing server logs", "Caching API responses"], correct: 0 },
+                    { question: "Which of the following is a common API authentication method?", options: ["OAuth", "SSL", "FTP", "SMTP"], correct: 0 },
+                    { question: "What is rate limiting in APIs?", options: ["Restricting the number of requests a client can make in a time period", "Encrypting API responses", "Monitoring CPU usage", "Blocking IP addresses permanently"], correct: 0 },
+                    { question: "Which status code indicates a client error in HTTP?", options: ["4xx", "2xx", "3xx", "5xx"], correct: 0 },
+                    { question: "Which header is used to specify the type of data sent in an HTTP request?", options: ["Content-Type", "Authorization", "Accept-Encoding", "Cache-Control"], correct: 0 },
+                    { question: "What is the main difference between synchronous and asynchronous APIs?", options: ["Synchronous waits for a response, asynchronous does not block the client", "Synchronous is faster, asynchronous is slower", "Synchronous only uses JSON, asynchronous uses XML", "Synchronous works over HTTP, asynchronous over HTTPS"], correct: 0 },
+                    { question: "Which database is considered NoSQL?", options: ["MongoDB", "MySQL", "PostgreSQL", "Oracle"], correct: 0 },
+                    { question: "Which database is relational?", options: ["MySQL", "MongoDB", "Cassandra", "Redis"], correct: 0 },
+                    { question: "What does idempotent mean in the context of HTTP methods?", options: ["Multiple identical requests have the same effect as a single request", "The request always fails", "It encrypts data automatically", "It caches responses"], correct: 0 },
+                    { question: "Which HTTP status code indicates 'Unauthorized'?", options: ["401", "403", "200", "404"], correct: 0 },
+                    { question: "Which of the following is a common format for API documentation?", options: ["OpenAPI/Swagger", "CSS", "HTML Templates", "JSON Schema"], correct: 0 },
+                    { question: "What is the purpose of a reverse proxy in backend systems?", options: ["Distribute client requests to multiple servers and improve security", "Store images and files", "Execute client-side scripts", "Manage database schemas"], correct: 0 },
+                    { question: "Which technique helps prevent CSRF (Cross-Site Request Forgery) attacks?", options: ["Using anti-CSRF tokens", "Encrypting database", "Blocking GET requests", "Disabling cookies"], correct: 0 },
+                    { question: "What is CORS in web development?", options: ["Cross-Origin Resource Sharing", "Client-Only Request System", "Common Object Request Syntax", "Cross-Operating Resource Server"], correct: 0 },
+                    { question: "Which HTTP method is idempotent?", options: ["PUT", "POST", "PATCH", "CONNECT"], correct: 0 },
+                    { question: "What is middleware in backend frameworks?", options: ["Software that processes requests and responses between client and server", "Hardware for network security", "Database management tool", "Load balancer"], correct: 0 },
+                    { question: "What does 'stateless' mean in REST APIs?", options: ["Each request contains all information, server stores no client session", "Server keeps track of all client sessions", "APIs store data permanently", "APIs encrypt all data"], correct: 0 },
+                    { question: "Which HTTP status code indicates 'Not Found'?", options: ["404", "403", "500", "200"], correct: 0 },
+                    { question: "What is the main purpose of an API gateway?", options: ["Routing requests, rate limiting, authentication", "Encrypting client files", "Storing logs", "Monitoring CPU usage"], correct: 0 },
+                    { question: "Which of the following is a GraphQL feature?", options: ["Clients request exactly the data they need", "Clients receive all server data always", "Only supports POST requests", "Works without HTTP"], correct: 0 },
+                    { question: "What is a webhook?", options: ["HTTP callback triggered by an event in another system", "A database query optimization technique", "A client-side cache", "A server-side rendering engine"], correct: 0 },
+                    { question: "What is the difference between PUT and PATCH?", options: ["PUT replaces the entire resource, PATCH updates partially", "PUT is faster, PATCH is slower", "PUT is idempotent, PATCH is not", "No difference"], correct: 0 },
+                    { question: "Which of the following improves API performance?", options: ["Caching responses", "Encrypting API keys", "Using synchronous calls only", "Blocking GET requests"], correct: 0 },
+                    { question: "Which HTTP header is used for authentication tokens?", options: ["Authorization", "Content-Type", "Accept", "Cache-Control"], correct: 0 },
+                    { question: "Which type of API allows clients to request only specific fields of data?", options: ["GraphQL", "REST", "SOAP", "gRPC"], correct: 0 },
+                    { question: "Which HTTP method is generally used to update a resource completely?", options: ["PUT", "PATCH", "POST", "GET"], correct: 0 }
                 ]
             },
             sql: {
